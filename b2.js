@@ -173,6 +173,7 @@ b2Body.prototype.b2AddTo = function(type,xy,wh,/*optional*/angle) {
     fx.density=this.den;
     fx.friction=this.fric;
     fx.restitution=this.bounc;
+    fx.display = null;
     this.fixtures.push(fx);
     this.body.CreateFixture(fx);
     return fx;
@@ -185,6 +186,10 @@ b2Body.prototype.draw = function () {
     if (this.life-- < 0) return true;
     var a = this.angle;
     for (var i=0; i<this.fixtures.length; i++) {
+    	if (this.fixtures[i].display!=null) {
+        this.fixtures[i].display(this,this.fixtures[i],pos);
+        continue;
+      }
     push();
     var xy=this.fixtures[i].xy;
     translate(pos.x,pos.y);
