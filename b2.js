@@ -187,7 +187,7 @@ b2Body.prototype.draw = function () {
     var a = this.angle;
     for (var i=0; i<this.fixtures.length; i++) {
     	if (this.fixtures[i].display!=null) {
-        this.fixtures[i].display(this,this.fixtures[i],pos);
+        this.fixtures[i].display.call(this,this.fixtures[i],pos);
         continue;
       }
     push();
