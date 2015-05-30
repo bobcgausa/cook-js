@@ -241,7 +241,7 @@ push();
       else if (Array.isArray(xy)) {
       	beginShape();
         for (var i=0; i<xy.length; i++)
-          vertex(xy[i].x+pos.x, xy[i].y+pos.y);
+          vertex(xy[i].x, xy[i].y);
         endShape(CLOSE);
       } else rect(0, 0, xy.x, xy.y);
     }
