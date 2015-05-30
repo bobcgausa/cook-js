@@ -212,7 +212,12 @@ b2Body.prototype.draw = function () {
       stroke(200);
       strokeWeight(2);
       if (this.isCircle(i)) ellipse(0, 0, xy.x, xy.x);
-      else rect(0, 0, xy.x, xy.y);
+      else if (Array.isArray(xy)) {
+      	beginShape();
+        for (var i=0; i<xy.length; i++)
+          vertex(xy[i].x+pos.x, xy[i].y+pos.y);
+        endShape(CLOSE);
+      } else rect(0, 0, xy.x, xy.y);
     }
     pop();
 }
@@ -233,7 +238,12 @@ push();
       image(fixtures.image,0,0,xy.x,xy.y);
     } else {
       if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
-      else rect(0, 0, xy.x, xy.y);
+      else if (Array.isArray(xy)) {
+      	beginShape();
+        for (var i=0; i<xy.length; i++)
+          vertex(xy[i].x+pos.x, xy[i].y+pos.y);
+        endShape(CLOSE);
+      } else rect(0, 0, xy.x, xy.y);
     }
     pop();
 }
