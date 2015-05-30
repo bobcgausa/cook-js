@@ -166,7 +166,7 @@ b2Body.prototype.b2AddTo = function(type,xy,wh,/*optional*/angle) {
       fx.shape.m_p = b2scaleTo(xy);
     } else {    
       fx.shape=new box2d.b2PolygonShape();
-      if (wh.isArray()) {
+      if (Array.isArray(wh)) {
       	var vecs = [];
         for (var i = 0; i < wh.length; i++) {
           vecs[i] = b2scaleTo(wh[i]);
