@@ -212,6 +212,26 @@ b2Body.prototype.draw = function () {
 }
     return false;
 }
+var b2display = function(body, fixture, pos) {
+push();
+    var xy=fixture.xy;
+    var a=body.angle;
+    translate(pos.x,pos.y);
+    if (a != 0) 
+      rotate(a);
+    translate(xy.x,xy.y);
+    if (fixture.angle != 0) 
+      rotate(fixture.angle);
+    xy=fixture.wh;
+    if (fixture.image!=null) {
+      image(fixtures.image,0,0,xy.x,xy.y);
+    } else {
+      if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
+      else rect(0, 0, xy.x, xy.y);
+    }
+    pop();
+}
+
 b2Body.prototype.isCircle = function (index) {
    return this.fixtures[index||0].isCircle; 
 }
