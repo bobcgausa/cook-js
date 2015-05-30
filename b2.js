@@ -218,6 +218,9 @@ b2Body.prototype.isCircle = function (index) {
 b2Body.prototype.image = function (image,index) {
    this.fixtures[index||0].image = image; 
 }
+b2Body.prototype.display = function (func) {
+   this.fixtures[index||0].display = func; 
+}
 b2Body.prototype.applyImpulse = function (xy,power) {
     xy.mult(power);
     this.body.ApplyLinearImpulse(new box2d.b2Vec2(xy.x,xy.y),this.body.GetWorldCenter());
