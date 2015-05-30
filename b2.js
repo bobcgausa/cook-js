@@ -166,8 +166,14 @@ b2Body.prototype.b2AddTo = function(type,xy,wh,/*optional*/angle) {
       fx.shape.m_p = b2scaleTo(xy);
     } else {    
       fx.shape=new box2d.b2PolygonShape();
-      fx.shape.SetAsOrientedBox(t.x/2, t.y/2, b2scaleTo(xy), angle||0);
-      
+      if ("array" == typeof xy) {
+      	var vecs = [];
+        for (var i = 0; i < xy.length; i++) {
+          vecs[i] = b2scaleTo(xy[i]);
+        }
+        fx.shape.SetAsArray(vecs, vecs.length);
+      } else
+        fx.shape.SetAsOrientedBox(t.x/2, t.y/2, b2scaleTo(xy), angle||0);
     }
     fx.angle = angle||0;
     fx.density=this.den;
