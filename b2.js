@@ -51,7 +51,7 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.bodyA = bodyA.body;
        j.bodyB = bodyB.body;
        // Equilibrium length
-       j.length = props.separation;
+       j.length = props.separation/b2scaleFactor;
        // These properties affect how springy the joint is 
        j.frequencyHz = props.frequency||0;  // Try a value less than 5 (0 for no elasticity)
        j.dampingRatio = props.damping||1; // Ranges between 0 and 1 (1 for no springiness)
