@@ -53,11 +53,18 @@ function b2Joint(type, bodyA, bodyB, props) {
        // Equilibrium length
        j.length = props.separation;
        // These properties affect how springy the joint is 
-       j.frequencyHz = props.frequency;  // Try a value less than 5 (0 for no elasticity)
-       j.dampingRatio = props.damping; // Ranges between 0 and 1 (1 for no springiness)
+       j.frequencyHz = props.frequency||0;  // Try a value less than 5 (0 for no elasticity)
+       j.dampingRatio = props.damping||1; // Ranges between 0 and 1 (1 for no springiness)
+    } else if (type=='revolute') {
+    	j = new box2d.b2RevoluteJointDef();
+    	j.Initialize(bodyA.body, bodyB.body, props.xy == undefined?bodyA.body.GetWorldCenter():b2scaleTo(props.xy));
+    	j.motorSpeed = props.speed||0;       // how fast?
+        j.maxMotorTorque = props.maxTorque||0; // how powerful?
+        j.enableMotor = props.enable||false;      // is it on?
     }
     bodyA.joints.push(j);
     b2world.CreateJoint(j);
+    return j;
 }
 function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.body = new box2d.b2BodyDef();
@@ -273,6 +280,17 @@ b2Body.prototype.image = function (image,index) {
 }
 b2Body.prototype.display = function (func,index) {
    this.fixtures[index||0].display = func; 
+}
+b2Body.prototype.motorOn = function (on,index) {
+   this.joints[index||0].enableMotor = on; 
+}
+b2Body.prototype.motorSpeed = function (v,index) {
+   this.joints[index||0].motorSpeed += v;
+   return this.joints[index||0].motorSpeed;
+}
+b2Body.prototype.maxMotorTorque = function (v,index) {
+   this.joints[index||0].maxMotorTorque += v;
+   return this.joints[index||0].maxMotorTorque;
 }
 b2Body.prototype.applyImpulse = function (xy,power) {
     xy.mult(power);
