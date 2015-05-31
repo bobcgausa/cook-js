@@ -57,7 +57,7 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.dampingRatio = 0.1; // Ranges between 0 and 1 (1 for no springiness)
     }
     bodyA.joints.push(j);
-    world.CreateJoint(j);
+    b2world.CreateJoint(j);
 }
 function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.body = new box2d.b2BodyDef();
