@@ -138,7 +138,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
                 return this.body.bullet;
             },
             "set": function (x) {
-                this.body.SetBullet(x));
+                this.body.SetBullet(x);
             }
         }
     });
