@@ -55,7 +55,7 @@ function b2Joint(type, bodyA, bodyB, props) {
        // These properties affect how springy the joint is 
        j.frequencyHz = props.frequency||0;  // Try a value less than 5 (0 for no elasticity)
        j.dampingRatio = props.damping||1; // Ranges between 0 and 1 (1 for no springiness)
-       if (props.xy == undefined) j.localAnchorA = b2scaleTo(props.xy);
+       if (props.xy != undefined) j.localAnchorA = b2scaleTo(props.xy);
     } else if (type=='rope') {
     	j = new box2d.b2RopeJointDef();
         // Connection between previous and this one
@@ -63,7 +63,7 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.bodyB = bodyB.body;
        // Equilibrium length
        j.maxLength = props.separation/b2scaleFactor;
-       if (props.xy == undefined) j.localAnchorA = b2scaleTo(props.xy);
+       if (props.xy != undefined) j.localAnchorA = b2scaleTo(props.xy);
     } else if (type=='revolute') {
     	j = new box2d.b2RevoluteJointDef();
     	j.Initialize(bodyA.body, bodyB.body, props.xy == undefined?bodyA.body.GetWorldCenter():b2scaleTo(props.xy));
