@@ -337,7 +337,7 @@ var drawJoint = function(context, scale, world, joint) {
       context.lineTo(x2.x, x2.y);
       break;
     default: {
-      if (b1 == world.m_groundBody) {
+      /*if (b1 == world.m_groundBody) {
         context.moveTo(p1.x, p1.y);
         context.lineTo(x2.x, x2.y);
       }
@@ -350,7 +350,7 @@ var drawJoint = function(context, scale, world, joint) {
         context.lineTo(p1.x, p1.y);
         context.lineTo(x2.x, x2.y);
         context.lineTo(p2.x, p2.y);
-      }
+      }*/
     } break;
   }
   context.closePath();
