@@ -68,8 +68,8 @@ function b2Joint(type, bodyA, bodyB, props) {
         j.target = b2scaleTo(props.xy);
         j.collideConnected = true;
         j.maxForce = props.maxForce||(1000.0 * bodyB.body.GetMass());
-        j.frequencyHz = props.frequency||0;  // Try a value less than 5 (0 for no elasticity)
-        j.dampingRatio = props.damping||1; // Ranges between 0 and 1 (1 for no springiness)
+        j.frequencyHz = props.frequency||5;  // Try a value less than 5 (0 for no elasticity)
+        j.dampingRatio = props.damping||0.9; // Ranges between 0 and 1 (1 for no springiness)
         bodyB.body.SetAwake(true);
         bodyA=bodyB;
     }
@@ -288,6 +288,12 @@ var b2display = function(body, fixture, pos) {
 b2Body.prototype.isCircle = function (index) {
    return this.fixtures[index||0].isCircle; 
 }
+b2Body.prototype.destroyJoint = function (index) {
+   var x = this.joints[index||0];
+   this.joints.splice(index||0,1);
+   b2world.Destroybody(x.bodyA);
+   b2world.DestroyJoint(x);
+}
 b2Body.prototype.image = function (image,index) {
    this.fixtures[index||0].image = image; 
 }
@@ -311,6 +317,9 @@ b2Body.prototype.getMotorSpeed = function (index) {
 }
 b2Body.prototype.getMaxMotorTorque = function (index) {
    return this.joints[index||0].GetMaxMotorTorque();
+}
+b2Body.prototype.setTarget = function (xy,index) {
+   return this.joints[index||0].SetTarget(b2scaleTo(xy));
 }
 b2Body.prototype.applyImpulse = function (xy,power) {
     xy.mult(power);
@@ -367,14 +376,20 @@ var drawJoint = function(context, scale, world, joint) {
   var b2 = joint.m_bodyB;
   var x1 = b1.GetPosition();
   var x2 = b2.GetPosition();
-  //var p1 = joint.GetAnchorA(); //box2d error??
- // var p2 = joint.GetAnchorB();
+  var p1;
+  var p2;
 
   context.beginPath();
   switch (joint.m_type) {
     case box2d.b2JointType.e_distanceJoint:
       context.moveTo(x1.x, x1.y);
       context.lineTo(x2.x, x2.y);
+      break;
+    case box2d.b2JointType.e_mouseJoint:
+      var p1 = joint.GetAnchorA();
+      var p2 = joint.GetAnchorB();
+      context.moveTo(p1.x, p1.y);
+      context.lineTo(p2.x, p2.y);
       break;
     default: {
       /*if (b1 == world.m_groundBody) {
