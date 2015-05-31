@@ -432,8 +432,8 @@ var drawJoint = function(context, scale, world, joint) {
       context.lineTo(p2.x, p2.y);
       break;
     case box2d.b2JointType.e_pulleyJoint:
-      p1 = joint.GetGroundAnchorA();
-      p2 = joint.GetGroundAnchorB();
+      p1 = joint.m_groundAnchorA;
+      p2 = joint.m_groundAnchorB;
       context.moveTo(p1.x, p1.y);
       context.lineTo(x1.x, x1.y);
       context.moveTo(p2.x, p2.y);
