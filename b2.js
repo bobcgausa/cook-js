@@ -65,7 +65,7 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.groundAnchorB = b2scaleTo(props.xyb);
        j.lengthA = props.lengthA/b2scaleFactor;
        j.lengthB = props.lengthB/b2scaleFactor;
-       j.ration = props.ratio;
+       j.ratio = props.ratio;
     } else if (type=='rope') {
     	j = new box2d.b2RopeJointDef();
         // Connection between previous and this one
