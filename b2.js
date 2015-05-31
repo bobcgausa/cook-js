@@ -47,11 +47,11 @@ function b2Joint(type, bodyA, bodyB, props) {
     var j;
     if (type=='distance') {
     	j = new box2d.b2DistanceJointDef();
-        // Connection between previous particle and this one
-       j.bodyA = bodyA;
-       j.bodyB = bodyB;
+        // Connection between previous and this one
+       j.bodyA = bodyA.body;
+       j.bodyB = bodyB.body;
        // Equilibrium length
-       j.length = 0.1;
+       j.length = 0.4;
        // These properties affect how springy the joint is 
        j.frequencyHz = 3;  // Try a value less than 5 (0 for no elasticity)
        j.dampingRatio = 0.1; // Ranges between 0 and 1 (1 for no springiness)
