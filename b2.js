@@ -291,7 +291,7 @@ b2Body.prototype.isCircle = function (index) {
 b2Body.prototype.destroyJoint = function (index) {
    var x = this.joints[index||0];
    this.joints.splice(index||0,1);
-   b2world.DestroyBody(x.bodyA);
+   b2world.DestroyBody(x.m_bodyA);
    b2world.DestroyJoint(x);
 }
 b2Body.prototype.image = function (image,index) {
