@@ -291,7 +291,7 @@ b2Body.prototype.isCircle = function (index) {
 b2Body.prototype.destroyJoint = function (index) {
    var x = this.joints[index||0];
    this.joints.splice(index||0,1);
-   b2world.Destroybody(x.bodyA);
+   b2world.DestroyBody(x.bodyA);
    b2world.DestroyJoint(x);
 }
 b2Body.prototype.image = function (image,index) {
@@ -319,7 +319,7 @@ b2Body.prototype.getMaxMotorTorque = function (index) {
    return this.joints[index||0].GetMaxMotorTorque();
 }
 b2Body.prototype.setTarget = function (xy,index) {
-   return this.joints[index||0].SetTarget(b2scaleTo(xy));
+   this.joints[index||0].SetTarget(b2scaleTo(xy));
 }
 b2Body.prototype.applyImpulse = function (xy,power) {
     xy.mult(power);
