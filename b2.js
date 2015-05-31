@@ -316,7 +316,9 @@ b2Body.prototype.applyAngularImpulse = function (x) {
     this.body.ApplyAngularImpulse(x);
 }
 b2Body.prototype.toString = function () {
-    return this.xy.x + ' ' + this.xy.y + ' ' + this.velocity;
+    var v = this.velocity;
+    var xy = this.xy;
+    return xy.x.toFixed() + '/' + xy.y.toFixed() + ' ' + v.x.toFixed() + '/' + v.y.toFixed();
 }
 // -----------------------------------------------------------------------------
 // Draw Methods
