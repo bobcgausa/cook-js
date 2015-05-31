@@ -332,7 +332,7 @@ var drawJoint = function(context, scale, world, joint) {
 
   context.beginPath();
   switch (joint.m_type) {
-    case box2d.b2Joint.e_distanceJoint:
+    case box2d.b2JointType.e_distanceJoint:
       context.moveTo(x1.x, x1.y);
       context.lineTo(x2.x, x2.y);
       break;
