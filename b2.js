@@ -291,12 +291,10 @@ b2Body.prototype.isMotorOn = function (on,index) {
    this.joints[index||0].IsMotorEnabled(on); 
 }
 b2Body.prototype.motorSpeed = function (v,index) {
-   this.joints[index||0].motorSpeed += v;
-   return this.joints[index||0].motorSpeed;
+   this.joints[index||0].SetMotorSpeed(v);
 }
 b2Body.prototype.maxMotorTorque = function (v,index) {
-   this.joints[index||0].maxMotorTorque += v;
-   return this.joints[index||0].maxMotorTorque;
+   this.joints[index||0].SetMaxMotorTorque(v);
 }
 b2Body.prototype.applyImpulse = function (xy,power) {
     xy.mult(power);
