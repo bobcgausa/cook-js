@@ -81,6 +81,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.bounc=bounce;
     this.fixtures=[];
     this.joints=[];
+    this.visible = true;
     this.life = 10000000;
     b2Count++;
     this.body = b2world.CreateBody(this.body);
@@ -214,6 +215,7 @@ b2Body.prototype.draw = function () {
     if (pos.x<0 || pos.x>width) return true;
     if (pos.y>height) return true;
     if (this.life-- < 0) return true;
+    if (!this.visible) return false;
     var a = this.angle;
     for (var i=0; i<this.fixtures.length; i++) {
     	if (this.fixtures[i].display!=null) {
@@ -248,7 +250,8 @@ b2Body.prototype.draw = function () {
     return false;
 }
 var b2display = function(body, fixture, pos) {
-push();
+     if (!body.visible) return;
+     push();
     var xy=fixture.xy;
     var a=body.angle;
     translate(pos.x,pos.y);
