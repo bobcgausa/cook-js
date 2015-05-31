@@ -54,7 +54,7 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.length = 0.1;
        // These properties affect how springy the joint is 
        j.frequencyHz = 3;  // Try a value less than 5 (0 for no elasticity)
-       .dampingRatio = 0.1; // Ranges between 0 and 1 (1 for no springiness)
+       j.dampingRatio = 0.1; // Ranges between 0 and 1 (1 for no springiness)
     }
     bodyA.joints.push(j);
     world.CreateJoint(j);
