@@ -437,7 +437,7 @@ var drawJoint = function(context, scale, world, joint) {
       context.moveTo(p1.x, p1.y);
       context.lineTo(x1.x, x1.y);
       context.moveTo(p2.x, p2.y);
-      context.lineTo(x2.x, x2.y
+      context.lineTo(x2.x, x2.y);
       context.moveTo(p1.x, p1.y);
       context.lineTo(p2.x, p2.y);
       break;
