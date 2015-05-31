@@ -62,8 +62,8 @@ function b2Joint(type, bodyA, bodyB, props) {
         j.maxMotorTorque = props.maxTorque||0; // how powerful?
         j.enableMotor = props.enable||false;      // is it on?
     }
+    j = b2world.CreateJoint(j);
     bodyA.joints.push(j);
-    b2world.CreateJoint(j);
     return j;
 }
 function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
@@ -285,7 +285,7 @@ b2Body.prototype.display = function (func,index) {
    this.fixtures[index||0].display = func; 
 }
 b2Body.prototype.motorOn = function (on,index) {
-   this.joints[index||0].enableMotor = on; 
+   this.joints[index||0].EnableMotor(on); 
 }
 b2Body.prototype.motorSpeed = function (v,index) {
    this.joints[index||0].motorSpeed += v;
