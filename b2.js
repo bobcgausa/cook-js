@@ -327,14 +327,14 @@ var drawJoint = function(context, scale, world, joint) {
   var b2 = joint.m_bodyB;
   var x1 = b1.GetPosition();
   var x2 = b2.GetPosition();
-  var p1 = joint.GetAnchorA();
-  var p2 = joint.GetAnchorB();
+  //var p1 = joint.GetAnchorA(); //box2d error??
+ // var p2 = joint.GetAnchorB();
 
   context.beginPath();
   switch (joint.m_type) {
     case box2d.b2Joint.e_distanceJoint:
-      context.moveTo(p1.x, p1.y);
-      context.lineTo(p2.x, p2.y);
+      context.moveTo(x1.x, x1.y);
+      context.lineTo(x2.x, x2.y);
       break;
     default: {
       if (b1 == world.m_groundBody) {
