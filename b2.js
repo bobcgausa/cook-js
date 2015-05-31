@@ -62,7 +62,7 @@ function b2Joint(type, bodyA, bodyB, props) {
         j.maxMotorTorque = props.maxTorque||0; // how powerful?
         j.enableMotor = props.enable||false;      // is it on?
     } else if (type=='mouse') {
-    	j = new b2MouseJointDef();
+    	j = new box2d.b2MouseJointDef();
         j.bodyA = bodyA!=null?bodyA.body:b2world.GetGroundBody();
         j.bodyB = bodyB.body;
         j.target.Set(props.xy.x, props.xy.y);
