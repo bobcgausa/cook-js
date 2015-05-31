@@ -63,11 +63,13 @@ function b2Joint(type, bodyA, bodyB, props) {
         j.enableMotor = props.enable||false;      // is it on?
     } else if (type=='mouse') {
     	j = new box2d.b2MouseJointDef();
-        j.bodyA = bodyA!=null?bodyA.body:b2world.GetGroundBody();
+        j.bodyA = bodyA!=null?bodyA.body:b2world.CreateBody(new box2d.b2BodyDef());
         j.bodyB = bodyB.body;
-        j.target.Set(props.xy.x, props.xy.y);
+        j.target = b2scaleTo(props.xy);
         j.collideConnected = true;
-        j.maxForce = 300.0 * bodyB.body.GetMass();
+        j.maxForce = props.maxForce||(1000.0 * bodyB.body.GetMass());
+        j.frequencyHz = props.frequency||0;  // Try a value less than 5 (0 for no elasticity)
+        j.dampingRatio = props.damping||1; // Ranges between 0 and 1 (1 for no springiness)
         bodyB.body.SetAwake(true);
         bodyA=bodyB;
     }
