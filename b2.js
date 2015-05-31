@@ -60,7 +60,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.life = 10000000;
     b2Count++;
     this.body = b2world.CreateBody(this.body);
-    this.b2AddTo(type,createVector(0,0),wh,angle);
+    this.AddTo(type,createVector(0,0),wh,angle);
     b2new.push(this);
     Object.defineProperties(this, {
         "density": {
@@ -154,7 +154,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
 }
-b2Body.prototype.b2AddTo = function(type,xy,wh,/*optional*/angle) {
+b2Body.prototype.AddTo = function(type,xy,wh,/*optional*/angle) {
     var t = b2scaleTo(wh);
     var fx = new box2d.b2FixtureDef();
     fx.image = null;
