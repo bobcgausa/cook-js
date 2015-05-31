@@ -43,6 +43,22 @@ function b2Draw(debug) {
 function b2Destroy(body) {
     body.body.SetActive(false);
 }
+function b2Joint(type, bodyA, bodyB, props) {
+    var j;
+    if (type=='distance') {
+    	j = new box2d.b2DistanceJointDef();
+        // Connection between previous particle and this one
+       j.bodyA = bodyA;
+       j.bodyB = bodyB;
+       // Equilibrium length
+       j.length = 0.1;
+       // These properties affect how springy the joint is 
+       j.frequencyHz = 3;  // Try a value less than 5 (0 for no elasticity)
+       .dampingRatio = 0.1; // Ranges between 0 and 1 (1 for no springiness)
+    }
+    bodyA.joints.push(j);
+    world.CreateJoint(j);
+}
 function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.body = new box2d.b2BodyDef();
     this.body.type = 
@@ -57,6 +73,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.fric=fric;
     this.bounc=bounce;
     this.fixtures=[];
+    this.joints=[];
     this.life = 10000000;
     b2Count++;
     this.body = b2world.CreateBody(this.body);
