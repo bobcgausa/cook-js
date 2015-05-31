@@ -284,6 +284,26 @@ var b2display = function(body, fixture, pos) {
     }
     pop();
 }
+var b2getBodyAt = function(x,y) {
+   var mouseInWorld = b2scaleTo(createVector(x,y))
+   var aabb = new box2d.b2AABB();
+   aabb.lowerBound=new box2d.b2Vec2(mouseInWorld.x - 0.001, mouseInWorld.y - 0.001);
+   aabb.upperBound=new box2d.b2Vec2(mouseInWorld.x + 0.001, mouseInWorld.y + 0.001);
+   
+   // Query the world for overlapping shapes.
+
+   var selectedBody = null;
+   b2world.QueryAABB(function(fixture) {
+     if(fixture.GetBody().GetType() != box2d.b2BodyType.b2_staticBody) {
+        if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mouseInWorld)) {
+           selectedBody = fixture.GetBody();
+           return false;
+        }
+     }
+     return true;
+   }, aabb);
+   return selectedBody;
+}
 
 b2Body.prototype.isCircle = function (index) {
    return this.fixtures[index||0].isCircle; 
