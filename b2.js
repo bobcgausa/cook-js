@@ -85,6 +85,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.life = 10000000;
     b2Count++;
     this.body = b2world.CreateBody(this.body);
+    this.body.userData = this;
     this.AddTo(type,createVector(0,0),wh,angle);
     b2new.push(this);
     Object.defineProperties(this, {
@@ -127,9 +128,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
                 return b2scaleFrom(this.body.GetPosition());
             },
             "set": function (x) {
-                var t = b2scaleTo(x);
-                this.body.position.x = t.x;
-                this.body.position.y = t.y;
+                this.body.SetPosition(b2scaleTo(x));
             }
         }
     });
@@ -139,7 +138,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
                 return this.body.bullet;
             },
             "set": function (x) {
-                this.body.bullet = x;
+                this.body.SetBullet(x));
             }
         }
     });
@@ -295,6 +294,12 @@ b2Body.prototype.motorSpeed = function (v,index) {
 }
 b2Body.prototype.maxMotorTorque = function (v,index) {
    this.joints[index||0].SetMaxMotorTorque(v);
+}
+b2Body.prototype.getMotorSpeed = function (index) {
+   return this.joints[index||0].GetMotorSpeed();
+}
+b2Body.prototype.getMaxMotorTorque = function (index) {
+   return this.joints[index||0].GetMaxMotorTorque();
 }
 b2Body.prototype.applyImpulse = function (xy,power) {
     xy.mult(power);
