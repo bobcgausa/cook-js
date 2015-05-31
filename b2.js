@@ -287,6 +287,9 @@ b2Body.prototype.display = function (func,index) {
 b2Body.prototype.motorOn = function (on,index) {
    this.joints[index||0].EnableMotor(on); 
 }
+b2Body.prototype.isMotorOn = function (on,index) {
+   this.joints[index||0].IsMotorEnabled(on); 
+}
 b2Body.prototype.motorSpeed = function (v,index) {
    this.joints[index||0].motorSpeed += v;
    return this.joints[index||0].motorSpeed;
