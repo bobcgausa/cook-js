@@ -31,7 +31,6 @@ function b2Update() {
   b2contacts=[];
 }
 
-}
 function b2Draw(debug) {
   imageMode(CENTER);
   rectMode(CENTER);
