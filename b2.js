@@ -19,6 +19,17 @@ var b2scaleFrom = function(a) {
 function b2Update() {
   // 2nd and 3rd arguments are velocity and position iterations
   b2world.Step(1.0/30,10,10);
+  if (b2contacts.length==0) return;
+  for (var i=0; i<b2contacts.length; i+=2) {
+    if (b2contacts[i].collision!=null) {
+    	b2contacts[i].collision(b2contacts[i],b2contacts[i+1]);
+    } else if (b2contacts[i+1].collision!=null) {
+    	b2contacts[i+1].collision(b2contacts[i+1],b2contacts[i]);
+    }
+  }
+  b2contacts=[];
+}
+
 }
 function b2Draw(debug) {
   imageMode(CENTER);
@@ -111,6 +122,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.joints=[];
     this.visible = true;
     this.life = 10000000;
+    this.collision = null;
     b2Count++;
     this.body = b2world.CreateBody(this.body);
     this.body.userData = this;
@@ -382,6 +394,32 @@ b2Body.prototype.toString = function () {
     var xy = this.xy;
     return xy.x.toFixed() + '/' + xy.y.toFixed() + ' ' + v.x.toFixed() + '/' + v.y.toFixed();
 }
+var b2contacts=[];
+// ContactListener for collisions!
+function b2Listener() {
+// Collision event functions!
+this.BeginContact = function(contact) {
+  // Get both fixtures
+  var f1 = contact.GetFixtureA();
+  var f2 = contact.GetFixtureB();
+  // Get both bodies
+  var b1 = f1.GetBody();
+  if (!b1.IsActive()) return;
+  var b2 = f2.GetBody();
+  if (!b2.IsActive()) return;
+  b2contacts.push(b1.userData,b2.userData);
+}
+  // Objects stop touching each other
+  this.EndContact = function(contact) {
+  }
+
+  this.PreSolve = function(contact,manifold) {
+  }
+
+  this.PostSolve = function(contact,manifold) {
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Draw Methods
 // -----------------------------------------------------------------------------
