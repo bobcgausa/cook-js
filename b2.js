@@ -238,7 +238,7 @@ b2Body.prototype.AddTo = function(type,xy,wh,/*optional*/angle) {
     this.body.CreateFixture(fx);
     return fx;
 }
-b2Body.prototype.Destroy = function {
+b2Body.prototype.Destroy = function() {
 	this.body.SetActive(false);
 }
 b2Body.prototype.draw = function () {
