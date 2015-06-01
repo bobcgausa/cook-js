@@ -7,6 +7,7 @@ var b2World = function(scaleFactor, gravityVector) {
   b2world = 
    new box2d.b2World(new box2d.b2Vec2(gravityVector.x,gravityVector.y), true);
   b2scaleFactor = scaleFactor;
+  b2world.SetContactListener(new b2Listener());
 }
 var b2scaleFactor;
 var b2scaleTo = function(a) {
