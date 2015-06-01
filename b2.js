@@ -40,9 +40,7 @@ function b2Draw(debug) {
   while (b2new.length>0) 
     b2bods.push(b2new.pop());
 }
-function b2Destroy(body) {
-    body.body.SetActive(false);
-}
+
 function b2Joint(type, bodyA, bodyB, props) {
     var j;
     if (type=='distance') {
@@ -116,7 +114,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     b2Count++;
     this.body = b2world.CreateBody(this.body);
     this.body.userData = this;
-    this.AddTo(type,createVector(0,0),wh,angle);
+    this.addTo(type,createVector(0,0),wh,angle);
     b2new.push(this);
     Object.defineProperties(this, {
         "density": {
@@ -208,7 +206,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
 }
-b2Body.prototype.AddTo = function(type,xy,wh,/*optional*/angle) {
+b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
     var t = b2scaleTo(wh);
     var fx = new box2d.b2FixtureDef();
     fx.image = null;
@@ -238,7 +236,7 @@ b2Body.prototype.AddTo = function(type,xy,wh,/*optional*/angle) {
     this.body.CreateFixture(fx);
     return fx;
 }
-b2Body.prototype.Destroy = function() {
+b2Body.prototype.destroy = function() {
 	this.body.SetActive(false);
 }
 b2Body.prototype.draw = function () {
@@ -280,7 +278,7 @@ b2Body.prototype.draw = function () {
 }
     return false;
 }
-var b2display = function(body, fixture, pos) {
+var b2Display = function(body, fixture, pos) {
      if (!body.visible) return;
      push();
     var xy=fixture.xy;
