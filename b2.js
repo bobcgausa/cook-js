@@ -238,7 +238,9 @@ b2Body.prototype.AddTo = function(type,xy,wh,/*optional*/angle) {
     this.body.CreateFixture(fx);
     return fx;
 }
-
+b2Body.prototype.Destroy = function {
+	this.body.SetActive(false);
+}
 b2Body.prototype.draw = function () {
     var pos=b2scaleFrom(this.body.GetPosition());
     if (pos.x<0 || pos.x>width) return true;
@@ -335,6 +337,9 @@ b2Body.prototype.destroyJoint = function (index) {
 }
 b2Body.prototype.image = function (image,index) {
    this.fixtures[index||0].image = image; 
+}
+b2Body.prototype.sensor = function (b,index) {
+   this.fixtures[index||0].SetSensor(b); 
 }
 b2Body.prototype.display = function (func,index) {
    this.fixtures[index||0].display = func; 
