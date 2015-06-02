@@ -75,6 +75,11 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.lengthA = props.lengthA/b2scaleFactor;
        j.lengthB = props.lengthB/b2scaleFactor;
        j.ratio = props.ratio;
+    } else if (type=='wheel') {
+    	j = new box2d.b2WheelJointDef();
+        // Connection between previous and this one
+       j.bodyA = bodyA.body;
+       j.bodyB = bodyB.body;
     } else if (type=='rope') {
     	j = new box2d.b2RopeJointDef();
         // Connection between previous and this one
@@ -285,7 +290,7 @@ b2Body.prototype.draw = function () {
       fill(127);
       stroke(200);
       strokeWeight(2);
-      if (this.isCircle(i)) ellipse(0, 0, xy.x, xy.x);
+      if (this.fixtures[i].isCircle) ellipse(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
       	beginShape();
         for (var i=0; i<xy.length; i++)
