@@ -129,6 +129,13 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.addTo(type,createVector(0,0),wh,angle);
     b2new.push(this);
     Object.defineProperties(this, {
+        "static": {
+            "get": function () {
+                return this.body.GetType()==box2d.b2BodyType.b2_staticBody;
+            },
+        }
+    });
+    Object.defineProperties(this, {
         "density": {
             "get": function () {
                 return this.den;
@@ -336,8 +343,10 @@ var b2getBodyAt = function(x,y) {
    return selectedBody;
 }
 
-b2Body.prototype.isCircle = function (index) {
-   return this.fixtures[index||0].isCircle; 
+b2Body.prototype.type = function (index) {
+   if (this.fixtures[index||0].m_shape.m_type==box2d.b2ShapeType.e_circleShape) return 'circle';
+   if (this.fixtures[index||0].m_shape.m_type==box2d.b2ShapeType.e_polygonShape) return 'polygon';
+   return 'box';
 }
 b2Body.prototype.destroyJoint = function (index) {
    var x = this.joints[index||0];
@@ -516,7 +525,7 @@ var drawShape = function(context, scale, world, body, fixture) {
   context.beginPath();
   context.lineWidth /= scale;
 
-	var shape = fixture.m_shape;
+  var shape = fixture.m_shape;
   switch(shape.m_type) {
     case box2d.b2ShapeType.e_circleShape: {
       var r = shape.m_radius;
