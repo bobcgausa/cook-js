@@ -77,10 +77,12 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.ratio = props.ratio;
     } else if (type=='wheel') {
     	j = new box2d.b2WheelJointDef();
-        j.Initialize(bodyA.body, bodyB.body, props.xy == undefined?bodyA.body.GetWorldCenter():b2scaleTo(props.xy),b2scaleTo(props.axis));
+        j.Initialize(bodyA.body, bodyB.body, props.xy == undefined?bodyA.body.GetWorldCenter():b2scaleTo(props.xy),new box2d.b2Vec2(0,1)));
     	j.motorSpeed = props.speed||0;       // how fast?
         j.maxMotorTorque = props.maxTorque||0; // how powerful?
         j.enableMotor = props.enable||false;      // is it on?
+        j.frequencyHz = props.frequency||5;  // Try a value less than 5 (0 for no elasticity)
+        j.dampingRatio = props.damping||0.9; // Ranges between 0 and 1 (1 for no springiness)
     } else if (type=='rope') {
     	j = new box2d.b2RopeJointDef();
         // Connection between previous and this one
