@@ -150,7 +150,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             },
             "set": function (x) {
                 this.den = x;
-                for (var i=0; i<fixtures.length; i++) this.fixtures[i].density=x;
+                for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].density=x;
                 this.body.ResetMassData();
             }
         }
@@ -162,7 +162,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             },
             "set": function (x) {
                 this.fric = x;
-                for (var i=0; i<fixtures.length; i++) this.fixtures[i].friction=x;
+                for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].friction=x;
             }
         }
     });
@@ -172,8 +172,8 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
                 return this.bounc;
             },
             "set": function (x) {
-                this.bounce = x;
-                for (var i=0; i<fixtures.length; i++) this.fixtures[i].restitution=x;
+                this.bounc = x;
+                for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].restitution=x;
             }
         }
     });
