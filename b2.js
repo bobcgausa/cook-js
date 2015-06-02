@@ -190,7 +190,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     Object.defineProperties(this, {
         "bullet": {
             "get": function () {
-                return this.body.bullet;
+                return this.body.IsBullet();
             },
             "set": function (x) {
                 this.body.SetBullet(x);
