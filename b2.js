@@ -77,9 +77,10 @@ function b2Joint(type, bodyA, bodyB, props) {
        j.ratio = props.ratio;
     } else if (type=='wheel') {
     	j = new box2d.b2WheelJointDef();
-        // Connection between previous and this one
-       j.bodyA = bodyA.body;
-       j.bodyB = bodyB.body;
+        j.Initialize(bodyA.body, bodyB.body, props.xy == undefined?bodyA.body.GetWorldCenter():b2scaleTo(props.xy),b2scaleTo(props.axis));
+    	j.motorSpeed = props.speed||0;       // how fast?
+        j.maxMotorTorque = props.maxTorque||0; // how powerful?
+        j.enableMotor = props.enable||false;      // is it on?
     } else if (type=='rope') {
     	j = new box2d.b2RopeJointDef();
         // Connection between previous and this one
@@ -496,22 +497,7 @@ var drawJoint = function(context, scale, world, joint) {
       context.moveTo(p1.x, p1.y);
       context.lineTo(p2.x, p2.y);
       break;
-    default: {
-      /*if (b1 == world.m_groundBody) {
-        context.moveTo(p1.x, p1.y);
-        context.lineTo(x2.x, x2.y);
-      }
-      else if (b2 == world.m_groundBody) {
-        context.moveTo(p1.x, p1.y);
-        context.lineTo(x1.x, x1.y);
-      }
-      else {
-        context.moveTo(x1.x, x1.y);
-        context.lineTo(p1.x, p1.y);
-        context.lineTo(x2.x, x2.y);
-        context.lineTo(p2.x, p2.y);
-      }*/
-    } break;
+    default:  break;
   }
   context.closePath();
   context.stroke();
