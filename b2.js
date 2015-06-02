@@ -2,7 +2,7 @@ var b2world;
 var b2bods=[];
 var b2new=[];
 var b2Count=0;
-var b2World = function(scaleFactor, gravityVector) {
+var b2newWorld = function(scaleFactor, gravityVector) {
   // Initialize box2d physics and create the world
   b2world = 
    new box2d.b2World(new box2d.b2Vec2(gravityVector.x,gravityVector.y), true);
