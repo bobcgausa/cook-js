@@ -344,8 +344,8 @@ var b2getBodyAt = function(x,y) {
 }
 
 b2Body.prototype.type = function (index) {
-   if (this.fixtures[index||0].shape.m_type==box2d.b2ShapeType.e_circleShape) return 'circle';
-   if (this.fixtures[index||0].shape.m_type==box2d.b2ShapeType.e_polygonShape) return 'polygon';
+   if (this.fixtures[index||0].isCircle) return 'circle';
+   if (Array.isArray(this.fixtures[index||0].wh)) return 'polygon';
    return 'box';
 }
 b2Body.prototype.destroyJoint = function (index) {
