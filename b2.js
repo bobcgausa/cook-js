@@ -359,7 +359,7 @@ var b2getBodyAt = function(x,y) {
 
 b2Body.prototype.type = function (index) {
    if (this.fixtures[index||0].isCircle) return 'circle';
-   if (Array.isArray(this.fixtures[index||0].wh)) return 'polygon
+   if (Array.isArray(this.fixtures[index||0].wh)) return 'polygon';
    if (this.fixtures[index||0].isEdge) return 'edge';
    return 'box';
 }
