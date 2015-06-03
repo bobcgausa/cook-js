@@ -238,11 +238,15 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
     var fx = new box2d.b2FixtureDef();
     fx.image = null;
     fx.isCircle = type == 'circle';
+    fx.isEdge = type == 'edge';
     fx.xy = xy;
     fx.wh = wh;
     if (fx.isCircle) {
       fx.shape=new box2d.b2CircleShape(t.x/2);
       fx.shape.m_p = b2scaleTo(xy);
+    } else  if (fx.isEdge) {
+    	fx.shape=new box2d.b2EdgeShape();
+    	fx.shape.Set( b2scaleTo(xy), b2scaleTo(wh) );
     } else {    
       fx.shape=new box2d.b2PolygonShape();
       if (Array.isArray(wh)) {
@@ -294,6 +298,7 @@ b2Body.prototype.draw = function () {
       stroke(200);
       strokeWeight(2);
       if (this.fixtures[i].isCircle) ellipse(0, 0, xy.x, xy.x);
+      else if (this.fixtures[i].isEdge) line(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
       	beginShape();
         for (var i=0; i<xy.length; i++)
@@ -321,6 +326,7 @@ var b2Display = function(body, fixture, pos) {
       image(fixtures.image,0,0,xy.x,xy.y);
     } else {
       if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
+      else if (this.fixtures[i].isEdge) line(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
       	beginShape();
         for (var i=0; i<xy.length; i++)
@@ -353,7 +359,8 @@ var b2getBodyAt = function(x,y) {
 
 b2Body.prototype.type = function (index) {
    if (this.fixtures[index||0].isCircle) return 'circle';
-   if (Array.isArray(this.fixtures[index||0].wh)) return 'polygon';
+   if (Array.isArray(this.fixtures[index||0].wh)) return 'polygon
+   if (this.fixtures[index||0].isEdge) return 'edge';
    return 'box';
 }
 b2Body.prototype.destroyJoint = function (index) {
