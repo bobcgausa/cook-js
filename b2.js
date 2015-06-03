@@ -252,6 +252,7 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
       fx.shape.m_p = b2scaleTo(xy);
     } else  if (fx.isEdge) {
     	if (!Array.isArray(wh)) return null;
+    	if (this.body.type != box2d.b2BodyType.b2_staticBody) return null;
     	for (var i = 0; i < wh.length-1; i++) {
           if (i!=0) fx = new box2d.b2FixtureDef();
           fx.shape=new box2d.b2EdgeShape();
@@ -552,7 +553,10 @@ var drawShape = function(context, scale, world, body, fixture) {
       }
       context.lineTo(r, 0);
     } break;
-
+    case box2d.b2ShapeType.e_edgeShape:
+    	context.moveTo(shape.m_vertex1.x, shape.m_vertex1.y);
+    	context.lineTo(shape.m_vertex2.x, shape.m_vertex2.y);
+    break;
     case box2d.b2ShapeType.e_polygonShape:
     case box2d.b2ShapeType.e_chainShape: {
 
