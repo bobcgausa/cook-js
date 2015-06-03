@@ -251,8 +251,8 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
       fx.shape=new box2d.b2CircleShape(t.x/2);
       fx.shape.m_p = b2scaleTo(xy);
     } else  if (fx.isEdge) {
-    	if (!Array.isArray(wh)) return null;
-    	if (this.body.type != box2d.b2BodyType.b2_staticBody) return null;
+    	if (!Array.isArray(wh)) {this.fixtures.pop(); return null;}
+    	if (this.body.GetType() != box2d.b2BodyType.b2_staticBody) {this.fixtures.pop(); return null;}
     	for (var i = 0; i < wh.length-1; i++) {
           if (i!=0) fx = new box2d.b2FixtureDef();
           fx.shape=new box2d.b2EdgeShape();
