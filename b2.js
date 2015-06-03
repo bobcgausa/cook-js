@@ -317,7 +317,7 @@ b2Body.prototype.draw = function () {
       	  beginShape(LINES);
           for (var i=0; i<xy.length; i++)
             vertex(xy[i].x, xy[i].y);
-          endShape(CLOSE);	
+          endShape();	
       	} else {
       	  beginShape();
           for (var i=0; i<xy.length; i++)
@@ -352,7 +352,7 @@ var b2Display = function(body, fixture, pos) {
       	  beginShape(LINES);
           for (var i=0; i<xy.length; i++)
             vertex(xy[i].x, xy[i].y);
-          endShape(CLOSE);	
+          endShape();	
       	} else {
       	  beginShape();
           for (var i=0; i<xy.length; i++)
