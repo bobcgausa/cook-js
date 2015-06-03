@@ -314,7 +314,7 @@ b2Body.prototype.draw = function () {
       if (this.fixtures[i].isCircle) ellipse(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
       	if (this.fixtures[i].isEdge) {
-      	  beginShape(LINES);
+      	  beginShape();
           for (var i=0; i<xy.length; i++)
             vertex(xy[i].x, xy[i].y);
           endShape();	
@@ -349,7 +349,7 @@ var b2Display = function(body, fixture, pos) {
       else if (this.fixtures[i].isEdge) line(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
       	if (this.fixtures[i].isEdge) {
-      	  beginShape(LINES);
+      	  beginShape();
           for (var i=0; i<xy.length; i++)
             vertex(xy[i].x, xy[i].y);
           endShape();	
