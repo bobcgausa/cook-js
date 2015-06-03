@@ -313,10 +313,17 @@ b2Body.prototype.draw = function () {
       strokeWeight(2);
       if (this.fixtures[i].isCircle) ellipse(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
-      	beginShape();
-        for (var i=0; i<xy.length; i++)
-          vertex(xy[i].x, xy[i].y);
-        endShape(CLOSE);
+      	if (this.fixtures[i].isEdge) {
+      	  beginShape(LINES);
+          for (var i=0; i<xy.length; i++)
+            vertex(xy[i].x, xy[i].y);
+          endShape(CLOSE);	
+      	} else {
+      	  beginShape();
+          for (var i=0; i<xy.length; i++)
+            vertex(xy[i].x, xy[i].y);
+          endShape(CLOSE);
+      	}
       } else rect(0, 0, xy.x, xy.y);
     }
     pop();
@@ -341,10 +348,17 @@ var b2Display = function(body, fixture, pos) {
       if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
       else if (this.fixtures[i].isEdge) line(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
-      	beginShape();
-        for (var i=0; i<xy.length; i++)
-          vertex(xy[i].x, xy[i].y);
-        endShape(CLOSE);
+      	if (this.fixtures[i].isEdge) {
+      	  beginShape(LINES);
+          for (var i=0; i<xy.length; i++)
+            vertex(xy[i].x, xy[i].y);
+          endShape(CLOSE);	
+      	} else {
+      	  beginShape();
+          for (var i=0; i<xy.length; i++)
+            vertex(xy[i].x, xy[i].y);
+          endShape(CLOSE);
+      	}
       } else rect(0, 0, xy.x, xy.y);
     }
     pop();
