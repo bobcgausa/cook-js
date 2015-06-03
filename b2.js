@@ -241,12 +241,31 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
     fx.isEdge = type == 'edge';
     fx.xy = xy;
     fx.wh = wh;
+    fx.angle = angle||0;
+    fx.density=this.den;
+    fx.friction=this.fric;
+    fx.restitution=this.bounc;
+    fx.display = null;
+    this.fixtures.push(fx);
     if (fx.isCircle) {
       fx.shape=new box2d.b2CircleShape(t.x/2);
       fx.shape.m_p = b2scaleTo(xy);
     } else  if (fx.isEdge) {
-    	fx.shape=new box2d.b2EdgeShape();
-    	fx.shape.Set( b2scaleTo(xy), b2scaleTo(wh) );
+    	if (!Array.isArray(wh)) return null;
+    	for (var i = 0; i < wh.length-1; i++) {
+          if (i!=0) fx = new box2d.b2FixtureDef();
+          fx.shape=new box2d.b2EdgeShape();
+          if (i!=0) {
+          	fx.shape.m_hasVertex0 = true;
+          	fx.shape.m_vertex0 = b2scaleTo(wh[i-1]);
+          }
+          fx.shape.Set(b2scaleTo(wh[i]), b2scaleTo(wh[i+1]));
+          if (i!=wh.length-2) {
+          	fx.shape.m_hasVertex3 = true;
+          	fx.shape.m_vertex0 = b2scaleTo(wh[i+2]);
+          	this.body.CreateFixture(fx);
+          }
+        }
     } else {    
       fx.shape=new box2d.b2PolygonShape();
       if (Array.isArray(wh)) {
@@ -258,12 +277,6 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
       } else
         fx.shape.SetAsOrientedBox(t.x/2, t.y/2, b2scaleTo(xy), angle||0);
     }
-    fx.angle = angle||0;
-    fx.density=this.den;
-    fx.friction=this.fric;
-    fx.restitution=this.bounc;
-    fx.display = null;
-    this.fixtures.push(fx);
     this.body.CreateFixture(fx);
     return fx;
 }
@@ -298,7 +311,6 @@ b2Body.prototype.draw = function () {
       stroke(200);
       strokeWeight(2);
       if (this.fixtures[i].isCircle) ellipse(0, 0, xy.x, xy.x);
-      else if (this.fixtures[i].isEdge) line(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
       	beginShape();
         for (var i=0; i<xy.length; i++)
