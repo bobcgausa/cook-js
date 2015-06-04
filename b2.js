@@ -526,7 +526,7 @@ var drawJoint = function(context, scale, world, joint) {
       context.lineTo(x2.x, x2.y);
       break;
     case box2d.b2JointType.e_mouseJoint:
-    case box2d.b2JointType.e_wheekJoint:
+    case box2d.b2JointType.e_wheelJoint:
       var p1 = joint.GetAnchorA();
       var p2 = joint.GetAnchorB();
       context.moveTo(p1.x, p1.y);
