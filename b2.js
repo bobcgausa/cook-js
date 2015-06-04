@@ -144,6 +144,13 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
     Object.defineProperties(this, {
+        "active": {
+            "get": function () {
+                return this.body.IsActive();
+            },
+        }
+    });
+    Object.defineProperties(this, {
         "density": {
             "get": function () {
                 return this.den;
