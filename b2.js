@@ -525,10 +525,15 @@ var drawJoint = function(context, scale, world, joint) {
       context.moveTo(x1.x, x1.y);
       context.lineTo(x2.x, x2.y);
       break;
-    case box2d.b2JointType.e_mouseJoint:
     case box2d.b2JointType.e_wheelJoint:
-      var p1 = joint.GetAnchorA();
-      var p2 = joint.GetAnchorB();
+    	p1 = joint.m_localAnchorA;
+        p2 = joint.m_localAnchorB;
+        context.moveTo(x1.x+p1.x, x1.y+p1.y]);
+        context.lineTo(x2.x+p2.x, x2.y+p2.y);
+    	break
+    case box2d.b2JointType.e_mouseJoint:
+      p1 = joint.GetAnchorA();
+      p2 = joint.GetAnchorB();
       context.moveTo(p1.x, p1.y);
       context.lineTo(p2.x, p2.y);
       break;
