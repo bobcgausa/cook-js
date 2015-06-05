@@ -409,6 +409,12 @@ b2Body.prototype.image = function (image,index) {
 b2Body.prototype.sensor = function (b,index) {
    this.fixtures[index||0].SetSensor(b); 
 }
+b2Body.prototype.isSensor = function (b,index) {
+   this.fixtures[index||0].IsSensor(); 
+}
+b2Body.prototype.wh = function (index) {
+   return this.fixtures[index||0].wh; 
+}
 b2Body.prototype.display = function (func,index) {
    this.fixtures[index||0].display = func; 
 }
