@@ -354,9 +354,8 @@ var b2Display = function(body, fixture, pos) {
       image(fixtures.image,0,0,xy.x,xy.y);
     } else {
       if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
-      else if (this.fixtures[i].isEdge) line(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
-      	if (this.fixtures[i].isEdge) {
+      	if (fixture.isEdge) {
       	  beginShape();
           for (var i=0; i<xy.length; i++)
             vertex(xy[i].x, xy[i].y);
