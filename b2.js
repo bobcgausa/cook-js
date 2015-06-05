@@ -528,7 +528,7 @@ var drawJoint = function(context, scale, world, joint) {
     case box2d.b2JointType.e_wheelJoint:
     	p1 = joint.m_localAnchorA;
         p2 = joint.m_localAnchorB;
-        context.moveTo(x1.x+p1.x, x1.y+p1.y]);
+        context.moveTo(x1.x+p1.x, x1.y+p1.y);
         context.lineTo(x2.x+p2.x, x2.y+p2.y);
     	break
     case box2d.b2JointType.e_mouseJoint:
