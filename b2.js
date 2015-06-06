@@ -458,9 +458,9 @@ b2Body.prototype.applyAngularImpulse = function (x) {
     this.body.ApplyAngularImpulse(x);
 }
 b2Body.prototype.toString = function () {
-    var v = this.velocity;
-    var xy = this.xy;
-    return xy.x.toFixed() + '/' + xy.y.toFixed() + ' ' + v.x.toFixed() + '/' + v.y.toFixed();
+    var v = b2scaleFrom(this.velocity);
+    var xy = b2scaleFrom(this.body.GetPosition());
+    return xy.x.toFixed() + '/' + xy.y.toFixed() + ' ' + v.x.toFixed(2) + '/' + v.y.toFixed(2);
 }
 var b2contacts=[];
 // ContactListener for collisions!
