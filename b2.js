@@ -363,7 +363,7 @@ var b2Display = function(body, fixture, pos) {
     } else {
       if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
-      	if (this.fixtures[i].isEdge) {
+      	if (fixture.isEdge) {
           noFill();
       	  beginShape();
           for (var j=0; j<xy.length; j++)
