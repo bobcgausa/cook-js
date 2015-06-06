@@ -215,6 +215,26 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
     Object.defineProperties(this, {
+        "linearDamping": {
+            "get": function () {
+                return this.body.GetLinearDamping();
+            },
+            "set": function (x) {
+                this.body.SetLinearDamping(x);
+            }
+        }
+    });
+    Object.defineProperties(this, {
+        "angularDamping": {
+            "get": function () {
+                return this.body.GetAngularDamping();
+            },
+            "set": function (x) {
+                this.body.SetAngularDamping(x);
+            }
+        }
+    });
+    Object.defineProperties(this, {
         "velocity": {
             "get": function () {
                 return b2scaleFrom(this.body.GetLinearVelocity());
