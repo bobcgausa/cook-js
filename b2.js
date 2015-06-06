@@ -281,7 +281,7 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
       	fx.angle = 0;
       	var vecs = [];
         for (var i = 0; i < wh.length; i++) {
-          vecs[i] = b2scaleTo(wh[i]);
+          vecs[i] = b2scaleTo(wh[i]+xy);
         }
         fx.shape.SetAsArray(vecs, vecs.length);
       } else {
