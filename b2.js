@@ -315,7 +315,8 @@ b2Body.prototype.draw = function () {
       rotate(this.fixtures[i].angle);
     xy=this.fixtures[i].wh;
     if (this.fixtures[i].image!=null) {
-      image(this.fixtures[i].image,0,0,xy.x,xy.y);
+      if (Array.isArray(xy)) image(this.fixtures[i].image,0,0);
+      else image(this.fixtures[i].image,0,0,xy.x,xy.y);
     } else {
       fill(127);
       stroke(200);
@@ -353,7 +354,8 @@ var b2Display = function(body, fixture, pos) {
       rotate(fixture.angle);
     xy=fixture.wh;
     if (fixture.image!=null) {
-      image(fixtures.image,0,0,xy.x,xy.y);
+      if (Array.isArray(xy)) image(this.fixtures[i].image,0,0);
+      else image(this.fixtures[i].image,0,0,xy.x,xy.y);
     } else {
       if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
