@@ -391,7 +391,7 @@ var b2GetBodyAt = function(x,y) {
    b2world.QueryAABB(function(fixture) {
      if(fixture.GetBody().GetType() != box2d.b2BodyType.b2_staticBody) {
         if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mouseInWorld)) {
-           selectedBody = fixture.GetBody();
+           selectedBody = fixture.GetBody().userData;
            return false;
         }
      }
