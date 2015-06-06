@@ -294,8 +294,9 @@ b2Body.prototype.destroy = function() {
 }
 b2Body.prototype.draw = function () {
     var pos=b2scaleFrom(this.body.GetPosition());
-    if (pos.x<-10 || pos.x>width+10) return true;
-    if (pos.y>height+10) return true;
+    if (pos.x<0 || pos.x>width) return true;
+    if (pos.y>height) 
+      return true;
     if (this.life-- < 0) return true;
     if (!this.visible) return false;
     var a = this.angle;
