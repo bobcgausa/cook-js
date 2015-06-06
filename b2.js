@@ -374,7 +374,7 @@ var b2Display = function(body, fixture, pos) {
     }
     pop();
 }
-var b2getBodyAt = function(x,y) {
+var b2GetBodyAt = function(x,y) {
    var mouseInWorld = b2scaleTo(createVector(x,y))
    var aabb = new box2d.b2AABB();
    aabb.lowerBound=new box2d.b2Vec2(mouseInWorld.x - 0.001, mouseInWorld.y - 0.001);
