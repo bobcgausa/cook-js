@@ -286,7 +286,7 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
       } else
         fx.shape.SetAsOrientedBox(t.x/2, t.y/2, b2scaleTo(xy), angle||0);
     }
-    this.body.CreateFixture(fx);
+    fx.me=this.body.CreateFixture(fx);
     return fx;
 }
 b2Body.prototype.destroy = function() {
@@ -301,9 +301,10 @@ b2Body.prototype.draw = function () {
     if (!this.visible) return false;
     var a = this.angle;
     for (var i=0; i<this.fixtures.length; i++) {
+    	if (fixtures[i]==null) continue;
     	if (this.fixtures[i].display!=null) {
-        this.fixtures[i].display.call(null,this,this.fixtures[i],pos);
-        continue;
+          this.fixtures[i].display.call(null,this,this.fixtures[i],pos);
+          continue;
       }
     push();
     var xy=this.fixtures[i].xy;
@@ -403,9 +404,13 @@ b2Body.prototype.type = function (index) {
 }
 b2Body.prototype.destroyJoint = function (index) {
    var x = this.joints[index||0];
-   this.joints.splice(index||0,1);
-   b2world.DestroyBody(x.m_bodyA);
+   this.joints[index||0] = null;
    b2world.DestroyJoint(x);
+}
+b2Body.prototype.destroyShape = function (index) {
+   var x = this.fixtures[index||0];
+   this.fixtures[index||0] = null;
+   this.body.DestroyFixture(x.me);
 }
 b2Body.prototype.image = function (image,index) {
    this.fixtures[index||0].image = image; 
