@@ -609,7 +609,7 @@ var drawShape = function(context, scale, world, body, fixture) {
       var vertices = shape.m_vertices;
       var vertexCount = shape.m_count;
       if (!vertexCount) return;
-      context.translate(shape.m_centroid.x, shape.m_centroid.y); /*RPC*/
+      //context.translate(shape.m_centroid.x, shape.m_centroid.y); /*RPC*/
       context.moveTo(vertices[0].x, vertices[0].y);
       for (var i = 0; i < vertexCount; i++)
         context.lineTo(vertices[i].x, vertices[i].y);
