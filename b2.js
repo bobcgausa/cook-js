@@ -241,7 +241,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     });
 }
 b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
-    var t = b2scaleTo(wh);
+    var t;
     var fx = new box2d.b2FixtureDef();
     fx.image = null;
     fx.isCircle = type == 'circle';
@@ -255,6 +255,7 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
     fx.display = null;
     this.fixtures.push(fx);
     if (fx.isCircle) {
+      t = b2scaleTo(wh);
       fx.shape=new box2d.b2CircleShape(t.x/2);
       fx.shape.m_p = b2scaleTo(xy);
     } else  if (fx.isEdge) {
@@ -283,8 +284,10 @@ b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
           vecs[i] = b2scaleTo(wh[i]);
         }
         fx.shape.SetAsArray(vecs, vecs.length);
-      } else
+      } else {
+      	t = b2scaleTo(wh);
         fx.shape.SetAsOrientedBox(t.x/2, t.y/2, b2scaleTo(xy), angle||0);
+      }
     }
     fx.me=this.body.CreateFixture(fx);
     return fx;
@@ -327,13 +330,13 @@ b2Body.prototype.draw = function () {
       	if (this.fixtures[i].isEdge) {
           noFill();
       	  beginShape();
-          for (var i=0; i<xy.length; i++)
-            vertex(xy[i].x, xy[i].y);
+          for (var j=0; j<xy.length; j++)
+            vertex(xy[j].x, xy[j].y);
           endShape();	
       	} else {
       	  beginShape();
-          for (var i=0; i<xy.length; i++)
-            vertex(xy[i].x, xy[i].y);
+          for (var j=0; j<xy.length; j++)
+            vertex(xy[j].x, xy[j].y);
           endShape(CLOSE);
       	}
       } else rect(0, 0, xy.x, xy.y);
@@ -360,15 +363,16 @@ var b2Display = function(body, fixture, pos) {
     } else {
       if (fixture.isCircle) ellipse(0, 0, xy.x, xy.x);
       else if (Array.isArray(xy)) {
-      	if (fixture.isEdge) {
+      	if (this.fixtures[i].isEdge) {
+          noFill();
       	  beginShape();
-          for (var i=0; i<xy.length; i++)
-            vertex(xy[i].x, xy[i].y);
+          for (var j=0; j<xy.length; j++)
+            vertex(xy[j].x, xy[j].y);
           endShape();	
       	} else {
       	  beginShape();
-          for (var i=0; i<xy.length; i++)
-            vertex(xy[i].x, xy[i].y);
+          for (var j=0; j<xy.length; j++)
+            vertex(xy[j].x, xy[j].y);
           endShape(CLOSE);
       	}
       } else rect(0, 0, xy.x, xy.y);
