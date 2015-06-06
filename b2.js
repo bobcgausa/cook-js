@@ -301,7 +301,7 @@ b2Body.prototype.draw = function () {
     if (!this.visible) return false;
     var a = this.angle;
     for (var i=0; i<this.fixtures.length; i++) {
-    	if (fixtures[i]==null) continue;
+    	if (this.fixtures[i]==null) continue;
     	if (this.fixtures[i].display!=null) {
           this.fixtures[i].display.call(null,this,this.fixtures[i],pos);
           continue;
