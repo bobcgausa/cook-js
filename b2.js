@@ -205,6 +205,16 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
     Object.defineProperties(this, {
+        "gravityScale": {
+            "get": function () {
+                return this.body.GetGravityScale();
+            },
+            "set": function (x) {
+                this.body.SetGravityScale(x);
+            }
+        }
+    });
+    Object.defineProperties(this, {
         "velocity": {
             "get": function () {
                 return b2scaleFrom(this.body.GetLinearVelocity());
