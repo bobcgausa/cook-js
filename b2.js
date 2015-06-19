@@ -533,8 +533,8 @@ this.BeginContact = function(contact) {
   // Get both fixtures
   var f1 = contact.GetFixtureA();
   var f2 = contact.GetFixtureB();
-  if ((f1.filter.categoryBits & f2.filter.maskBits)==0)
-    if ((f2.filter.categoryBits & f1.filter.maskBits)==0) return;
+  if ((f1.m_filter.categoryBits & f2.filter.maskBits)==0)
+    if ((f2.m_filter.categoryBits & f1.filter.maskBits)==0) return;
   // Get both bodies
   var b1 = f1.GetBody();
   if (!b1.IsActive()) return;
