@@ -126,8 +126,8 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.den=den;
     this.fric=fric;
     this.bounc=bounce;
-    this.categories=1;
-    this.collidesWith=0xfffff;
+    this.categorys=1;
+    this.collideswith=0xfffff;
     this.fixtures=[];
     this.joints=[];
     this.visible = true;
@@ -167,10 +167,10 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     Object.defineProperties(this, {
         "categories": {
             "get": function () {
-                return this.categories;
+                return this.categorys;
             },
             "set": function (x) {
-                this.categories = x;
+                this.categorys = x;
                 for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].filter.categoryBits=x;
             }
         }
@@ -178,10 +178,10 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     Object.defineProperties(this, {
         "collidesWith": {
             "get": function () {
-                return this.collidesWith;
+                return this.collideswith;
             },
             "set": function (x) {
-                this.collidesWith = x;
+                this.collideswith = x;
                 for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].filter.maskBits=x;
             }
         }
