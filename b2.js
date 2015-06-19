@@ -171,7 +171,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             },
             "set": function (x) {
                 this.categorys = x;
-                for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].filter.categoryBits=x;
+                for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].me.m_filter.categoryBits=x;
             }
         }
     });
@@ -182,7 +182,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             },
             "set": function (x) {
                 this.collideswith = x;
-                for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].filter.maskBits=x;
+                for (var i=0; i<this.fixtures.length; i++) this.fixtures[i].me.m_filter.maskBits=x;
             }
         }
     });
