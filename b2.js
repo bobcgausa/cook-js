@@ -474,10 +474,10 @@ b2Body.prototype.image = function (image,index) {
    this.fixtures[index||0].image = image; 
 }
 b2Body.prototype.sensor = function (b,index) {
-   this.fixtures[index||0].SetSensor(b); 
+   this.fixtures[index||0].me.SetSensor(b); 
 }
 b2Body.prototype.isSensor = function (b,index) {
-   this.fixtures[index||0].IsSensor(); 
+   return this.fixtures[index||0].me.IsSensor(); 
 }
 b2Body.prototype.wh = function (index) {
    return this.fixtures[index||0].wh; 
