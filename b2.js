@@ -463,14 +463,14 @@ b2Body.prototype.type = function (index) {
 b2Body.prototype.destroyJoint = function (index) {
    index = index||0;
    var x = this.joints[index];
-   if (this.joints.length==index-1) this.joints.pop();
+   if (this.joints.length==index+1) this.joints.pop();
    else this.joints[index] = 0;   //setting intermediate indices to null is an error
    b2world.DestroyJoint(x);
 }
 b2Body.prototype.destroyShape = function (index) {
    index = index||0;
    var x = this.fixtures[index];
-   if (this.fixtures.length==index-1) this.fixtures.pop();
+   if (this.fixtures.length==index+1) this.fixtures.pop();
    this.fixtures[index] = 0;
    this.body.DestroyFixture(x.me);
 }
