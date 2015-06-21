@@ -471,7 +471,7 @@ b2Body.prototype.destroyShape = function (index) {
    index = index||0;
    var x = this.fixtures[index];
    if (this.fixtures.length==index+1) this.fixtures.pop();
-   this.fixtures[index] = 0;
+   else this.fixtures[index] = 0;
    this.body.DestroyFixture(x.me);
 }
 b2Body.prototype.image = function (image,index) {
