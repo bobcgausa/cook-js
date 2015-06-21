@@ -127,7 +127,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.fric=fric;
     this.bounc=bounce;
     this.categorys=1;
-    this.collideswith=0xfffff;
+    this.collideswith=0xffff;
     this.fixtures=[];
     this.joints=[];
     this.visible = true;
