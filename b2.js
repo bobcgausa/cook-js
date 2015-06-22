@@ -493,7 +493,7 @@ b2Body.prototype.motorOn = function (on,index) {
    this.joints[index||0].EnableMotor(on); 
 }
 b2Body.prototype.isMotorOn = function (on,index) {
-   this.joints[index||0].IsMotorEnabled(on); 
+   return this.joints[index||0].IsMotorEnabled(); 
 }
 b2Body.prototype.motorSpeed = function (v,index) {
    this.joints[index||0].SetMotorSpeed(v);
