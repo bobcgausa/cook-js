@@ -111,7 +111,7 @@ function b2Joint(type, bodyA, bodyB, props) {
     }
     j = b2world.CreateJoint(j);
     bodyA.joints.push(j);
-    return j;
+    return bodyA.joints.length-1;
 }
 function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.body = new box2d.b2BodyDef();
