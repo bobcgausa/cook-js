@@ -480,7 +480,7 @@ b2Body.prototype.image = function (image,index) {
 b2Body.prototype.sensor = function (b,index) {
    this.fixtures[index||0].me.SetSensor(b); 
 }
-b2Body.prototype.isSensor = function (b,index) {
+b2Body.prototype.isSensor = function (index) {
    return this.fixtures[index||0].me.IsSensor(); 
 }
 b2Body.prototype.wh = function (index) {
@@ -492,7 +492,7 @@ b2Body.prototype.display = function (func,index) {
 b2Body.prototype.motorOn = function (on,index) {
    this.joints[index||0].EnableMotor(on); 
 }
-b2Body.prototype.isMotorOn = function (on,index) {
+b2Body.prototype.isMotorOn = function (index) {
    return this.joints[index||0].IsMotorEnabled(); 
 }
 b2Body.prototype.motorSpeed = function (v,index) {
