@@ -38,13 +38,14 @@ function b2Draw(debug) {
   angleMode(RADIANS);
   var i=0;
   while (i<b2bods.length) {
-    if (!b2bods[i].body.IsActive() || b2bods[i].draw()) {
+    if (!b2bods[i].body.IsActive()) {
       b2world.DestroyBody(b2bods[i].body);
       b2Count--;
       b2bods[i]=b2bods[b2bods.length-1];
       b2bods.pop();
       continue;
     }
+    if (b2bods[i].draw()) b2bods[i].destroy();
     i++;
   }
   if (debug) b2debugDraw(this.canvas, b2scaleFactor, b2world);
