@@ -80,7 +80,7 @@ The default shape options for drawing are listed next:<br>
 
 Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/).<br>
 [Particle #1 JSON Example](http://jsfiddle.net/bobcook/cr1t6fzg/)<br>
-[Particle #2 User Structure](http://jsfiddle.net/bobcook/53h2uss8/)
+[Particle #2 User Structure](http://jsfiddle.net/bobcook/53h2uss8/)<br>
 [Particle #3 User Drawing Function](http://jsfiddle.net/bobcook/mph714p8/)
 
 ## Fountain/Particle Definition Properties
