@@ -78,7 +78,8 @@ The default shape options for drawing are listed next:<br>
 "rect"________filled rectangle partSize x partSize, color based on life, no rotation<br>
 
 
-Examples can be found in [the examples directory](examples).
+Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/).<br>
+[Particle #1 JSON Example](http://jsfiddle.net/bobcook/cr1t6fzg/)
 
 ## Fountain/Particle Definition Properties
 The object definition passed to the Fountain constructor can be user-defined or JSON as follow:<br>
