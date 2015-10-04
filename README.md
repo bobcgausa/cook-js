@@ -79,7 +79,8 @@ The default shape options for drawing are listed next:<br>
 
 
 Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/).<br>
-[Particle #1 JSON Example](http://jsfiddle.net/bobcook/cr1t6fzg/)
+[Particle #1 JSON Example](http://jsfiddle.net/bobcook/cr1t6fzg/)<br>
+[Particle #2 User Structure](http://jsfiddle.net/bobcook/53h2uss8/)
 
 ## Fountain/Particle Definition Properties
 The object definition passed to the Fountain constructor can be user-defined or JSON as follow:<br>
