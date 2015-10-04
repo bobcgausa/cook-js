@@ -9,22 +9,7 @@
 
 ## How Does This Work?
 
-p5.bots is a library to facilitate communication between [p5.js](http://p5js.org/) running in your browser and a microcontroller* running [Firmata](https://github.com/firmata/arduino)**.
-
-<small>
-```
-* The library has been tested on Arduino Unos, but should work on anything running Firmata.  
-** The serial API does not depend on Firmata.
-```
-</small>
-
-To do this, it uses the `socket.io` library and `node.js` to send messages between the two devices, in a language each device can understand.
-
-This way, you can click on a sketch to light an LED or use temperature data to drive a sketch — or more.
-
-p5bots comprises two sets of files: the client file, called `p5bots.js`, which is included in the `index.html` along with `p5.js` and your sketch; and the server files, called `p5bots-server`, which can be downloaded from [npm](https://www.npmjs.com/package/p5bots-server).
-
-If all this sounds a little too manual, you can also use p5bots from the [p5.js IDE](https://github.com/processing/p5.js-editor).
+p5.particle is a library to add particle support to [p5.js](http://p5js.org/).
 
 ## Particle
 A Particle object is simply a data definition.  There are no methods. 
@@ -69,6 +54,30 @@ x.Stop();  // Set left=0 and clear all active particles<br>
 x.Create( [ x, y [, angle]]);  // Create one particle, returns a Particle object or null if left==0<br>
 x.CreateN( [ x, y [, angle]]); // Uses a Fountain's "rate" property to create bursts of particles
 
+Particle drawing is totally up to the user.
+The following function can be called to extend the set of default drawing routines.
+
+function Fountain_display(name, proc) {<br>
+  fdisplay[name] = proc;<br>
+}
+
+Here is an example of one of the default drawing routines (shape name "point").
+Note that the choice of color changes as the "life" property progresses from 0 to 1.
+
+function fpoint(fountain, particle) {<br>
+stroke(fountain.colors[Math.floor(particle.life*fountain.colors.length)]);<br>
+    noFill(); <br>  
+    point(particle.location.x, particle.location.y);<br>
+}
+
+The default shape options for drawing are listed next:<br>
+"ellipse"_____filled ellipse partSize x partSize, color based on life<br>
+"ellipse2"____filled ellipse partSize x partSize, color based on id<br>
+"ellipse"_____tinted image, color based on life, rotated and scaled by partSize<br>
+"point"_______point, color based on life<br>
+"rect"________filled rectangle partSize x partSize, color based on life, no rotation<br>
+
+
 Examples can be found in [the examples directory](examples).
 
 ## Fountain/Particle Definition Properties
@@ -92,14 +101,23 @@ var t =<br>
     of = new Fountain(defs, 'foo');<br>
     of2 = new Fountain(null, u);
     
-angle[a,b]_random directional angle in degrees, default [0,0], initial velocity = angle*speed<br>
-dxy[a,b]___fraction of screen width/height, centered at xy, [-a:a,-b:b] defines generation box, default [0,0]<br>
-limit______number of particles to generate, default 99999999<br>
-rotation___angular velocity in angles, default 0<br>
-speed______determines initial velocity, default 1<br>
-speedx_____random add-on to speed at particle creation [-speedx,speedx], default 0<br>
-x__________fraction of screen width<br>
-y__________fraction of screen height
+acceleration_added to velocity on every step, default 0, omitted if gravity is specified<br>
+angle[a,b]___random directional angle in degrees, default [0,0], initial velocity = angle*speed<br>
+colors[a...]_array of color names or [r,g,b,a], sets this.colors, indexed by "life" fraction when drawing<br>
+dxy[a,b]_____fraction of screen width/height, centered at xy, [-a:a,-b:b] defines generation box, default [0,0]<br>
+file_________path string for an image file, sets this.image and this.f.image equal to loadImage<br>
+gravity______applied to velocity.y at every Step, default 0.01, omitted if acceleration is specified<br>
+lifetime_____number of steps for each particle to live, default 99999999
+limit________number of particles to generate, default 99999999<br>
+rate[a,b...]_array of pairs [count, particles-to-generate-per-CreateN], default [0,1], cycles<br>
+rotation_____angular velocity in angles, default 0<br>
+shape________string name of a "Draw" routine set by Fountain_display, default "ellipse"<br>
+size[a,b]____randomly sets partSize, default [2,2]<br>
+sizePercent__grow or shrink partSize on every Step, default 1<br>
+speed________determines initial velocity, default 1<br>
+speedx_______random add-on to speed at particle creation [-speedx,speedx], default 0<br>
+x____________fraction of screen width<br>
+y____________fraction of screen height
 
 ## Issues
 Report issues in this repo to kindlecbook at gmail.com
