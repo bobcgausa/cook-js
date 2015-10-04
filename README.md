@@ -1,0 +1,108 @@
+# Welcome to Particles for P5!
+
+* [How Does This Work?](#how-does-this-work)
+* [Particle](#particle)
+* [Fountain](#fountain)
+* [Issues](#issues)
+* [License](#license)
+
+
+## How Does This Work?
+
+p5.bots is a library to facilitate communication between [p5.js](http://p5js.org/) running in your browser and a microcontroller* running [Firmata](https://github.com/firmata/arduino)**.
+
+<small>
+```
+* The library has been tested on Arduino Unos, but should work on anything running Firmata.  
+** The serial API does not depend on Firmata.
+```
+</small>
+
+To do this, it uses the `socket.io` library and `node.js` to send messages between the two devices, in a language each device can understand.
+
+This way, you can click on a sketch to light an LED or use temperature data to drive a sketch — or more.
+
+p5bots comprises two sets of files: the client file, called `p5bots.js`, which is included in the `index.html` along with `p5.js` and your sketch; and the server files, called `p5bots-server`, which can be downloaded from [npm](https://www.npmjs.com/package/p5bots-server).
+
+If all this sounds a little too manual, you can also use p5bots from the [p5.js IDE](https://github.com/processing/p5.js-editor).
+
+## Particle
+A Particle object is simply a data definition.  There are no methods. 
+The data fields consist only of properties that are likely to vary on a per-particle basis.
+Properties that are common to all particles, such as gravity, are defined in the parent Fountain.
+Further, per-particle properties, such as color, that can be derived from a particle's id or life are also factored
+out into its Fountain definition.
+
+The Fountain's particle creation function returns a Particle object so that it is easy for users to add additional, 
+per-particle properties.
+
+A Particle terminates and is deallocated when 1) its "life" is greater than or equal one, 2) its "partSize" is less than 0.1,
+or 3) its "location" is greater than the canvas height.
+
+function Particle() {<br>
+  this.velocity = createVector();  // applied to location every Step<br>
+  this.partSize = 0;               // typically width and height, scale factor for images ( 1 means no scaling)<br>
+  this.location = createVector();  // center of all shapes and images<br>
+  this.life = 0;                   // 0 to 1<br>
+  this.rotation = 0;               // in degrees<br>
+  this.id = 0;                     // unique id counter per Fountain<br>
+}
+
+## Fountain
+A Fountain object encapsulates all the properties needed for Particle creation.
+A Fountain definition is data driven.
+The input can come from a user-created object, or a JSON file or string.
+
+Fountain(defs, nameOrF [ , x, y]) // xy, if present, override the data input location<br>
+(JSON object, name of a particle definition) OR<br>
+(null, user-created particle definition)
+
+var x = new Fountain(null, objectDef);
+
+x.length  // number of active particles<br>
+x.left    // number of particles left to create<br>
+x.done    // Fountain has generated all particles and they have all terminated
+
+x.Draw();  // Draw all particles<br>
+x.Step();  // Step all particles, e.g. location.add(velocity)<br>
+x.Stop();  // Set left=0 and clear all active particles<br>
+x.Create( [ x, y [, angle]]);  // Create one particle, returns a Particle object or null if left==0<br>
+x.CreateN( [ x, y [, angle]]); // Uses a Fountain's "rate" property to create bursts of particles
+
+Examples can be found in [the examples directory](examples).
+
+## Fountain/Particle Definition Properties
+The object definition passed to the Fountain constructor can be user-defined or JSON as follow:<br>
+var t =<br>
+        '{   ' +<br>
+        '    "parts": [   ' +<br>
+        '    {   ' +<br>
+        '    "name": "foo",   ' +<br>
+        '    "color":   ' +<br>
+        '    ["yellow"]   ' +<br>
+'}]}';<br>
+    var u = <br>
+    {name: "test",<br>
+     size: [2,8],<br>
+     angle: [250, 290],<br>
+     color: ["blue"],<br>
+     rate: [200,10,200,0]<br>
+    };<br>
+    defs = JSON.parse(t);<br>
+    of = new Fountain(defs, 'foo');<br>
+    of2 = new Fountain(null, u);
+    
+angle[a,b]_random directional angle in degrees, default [0,0], initial velocity = angle*speed<br>
+dxy[a,b]___fraction of screen width/height, centered at xy, [-a:a,-b:b] defines generation box, default [0,0]<br>
+limit______number of particles to generate, default 99999999<br>
+rotation___angular velocity in angles, default 0<br>
+speed______determines initial velocity, default 1<br>
+speedx_____random add-on to speed at particle creation [-speedx,speedx], default 0<br>
+x__________fraction of screen width<br>
+y__________fraction of screen height
+
+## Issues
+Report issues in this repo to kindlecbook at gmail.com
+
+## License
+There is no license.  Use as you wish.
