@@ -83,6 +83,8 @@ Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/).<
 [Particle #2 User Structure](http://jsfiddle.net/bobcook/53h2uss8/)<br>
 [Particle #3 User Drawing Function](http://jsfiddle.net/bobcook/mph714p8/)
 
+WARNING: Internet Explorer JSFiddle fails pulling files from github, use FireFox or copy to a local directory
+
 ## Fountain/Particle Definition Properties
 The object definition passed to the Fountain constructor can be user-defined or JSON as follow:<br>
 var t =<br>
