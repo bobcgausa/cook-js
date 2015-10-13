@@ -81,8 +81,8 @@ The default shape options for drawing are listed next:<br>
 Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/).<br>
 [Particle #1 JSON Example](http://jsfiddle.net/bobcook/cr1t6fzg/)<br>
 [Particle #2 User Structure](http://jsfiddle.net/bobcook/53h2uss8/)<br>
-[Particle #3 User Drawing Function](http://jsfiddle.net/bobcook/mph714p8/)
-[Particle #4 Vary speed with speedx](http://jsfiddle.net/bobcook/en4he5vt/)
+[Particle #3 User Drawing Function](http://jsfiddle.net/bobcook/mph714p8/)<br>
+[Particle #4 Vary speed with speedx](http://jsfiddle.net/bobcook/en4he5vt/)<br>
 [Particle #5 Generation patterns with rate](http://jsfiddle.net/bobcook/rLvhc8h2/)
 
 WARNING: Internet Explorer JSFiddle fails pulling files from github, use FireFox or copy to a local directory
