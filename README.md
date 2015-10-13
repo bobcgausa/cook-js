@@ -73,7 +73,7 @@ stroke(fountain.colors[Math.floor(particle.life*fountain.colors.length)]);<br>
 The default shape options for drawing are listed next:<br>
 "ellipse"_____filled ellipse partSize x partSize, color based on life<br>
 "ellipse2"____filled ellipse partSize x partSize, color based on id<br>
-"ellipse"_____tinted image, color based on life, rotated and scaled by partSize<br>
+"image"_____tinted image, color based on life, rotated by angle, and scaled by partSize<br>
 "point"_______point, color based on life<br>
 "rect"________filled rectangle partSize x partSize, color based on life, no rotation<br>
 
@@ -86,7 +86,8 @@ Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/).<
 WARNING: Internet Explorer JSFiddle fails pulling files from github, use FireFox or copy to a local directory
 
 ## Fountain/Particle Definition Properties
-The object definition passed to the Fountain constructor can be user-defined or JSON as follow:<br>
+The object definition passed to the Fountain constructor can be user-defined or JSON as follows:<br>
+
 var t =<br>
         '{   ' +<br>
         '    "parts": [   ' +<br>
@@ -95,6 +96,7 @@ var t =<br>
         '    "color":   ' +<br>
         '    ["yellow"]   ' +<br>
 '}]}';<br>
+
     var u = <br>
     {name: "test",<br>
      size: [2,8],<br>
@@ -112,7 +114,7 @@ colors[a...]_array of color names or [r,g,b,a], sets this.colors, indexed by "li
 dxy[a,b]_____fraction of screen width/height, centered at xy, [-a:a,-b:b] defines generation box, default [0,0]<br>
 file_________path string for an image file, sets this.image and this.f.image equal to loadImage<br>
 gravity______applied to velocity.y at every Step, default 0.01, omitted if acceleration is specified<br>
-lifetime_____number of steps for each particle to live, default 99999999
+lifetime_____number of steps for each particle to live, default 99999999<br>
 limit________number of particles to generate, default 99999999<br>
 rate[a,b...]_array of pairs [count, particles-to-generate-per-CreateN], default [0,1], cycles<br>
 rotation_____angular velocity in angles, default 0<br>
