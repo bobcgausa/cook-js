@@ -119,7 +119,7 @@ gravity______applied to velocity.y at every Step, default 0.01, omitted if accel
 lifetime_____number of steps for each particle to live, default 99999999<br>
 limit________number of particles to generate, default 99999999<br>
 rate[a,b...]_array of pairs [count, particles-to-generate-per-CreateN], default [0,1], cycles<br>
-rotation_____angular velocity in angles, default 0<br>
+rotation_____angular velocity in degrees, default 0<br>
 shape________string name of a "Draw" routine set by Fountain_display, default "ellipse"<br>
 size[a,b]____randomly sets partSize, default [2,2]<br>
 sizePercent__grow or shrink partSize on every Step, default 1<br>
