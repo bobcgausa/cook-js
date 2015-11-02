@@ -85,7 +85,7 @@ Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/).<
 [Particle #4 Vary speed with speedx](http://jsfiddle.net/bobcook/en4he5vt/)<br>
 [Particle #5 Generation patterns with rate](http://jsfiddle.net/bobcook/rLvhc8h2/)
 
-WARNING: Internet Explorer JSFiddle fails pulling files from github, use FireFox or copy to a local directory
+TESTING: Tested on Internet Explorer, Firefox, Chrome, ChromeBook, Edge
 
 ## Fountain/Particle Definition Properties
 The object definition passed to the Fountain constructor can be user-defined or JSON as follows:<br>
