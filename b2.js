@@ -60,7 +60,6 @@ function b2Destroy() {
   b2bods = [];
   b2Count = 0;
 }
-}
 
 function b2Joint(type, bodyA, bodyB, props) {
     var j;
