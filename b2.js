@@ -53,6 +53,15 @@ function b2Draw(debug) {
     b2bods.push(b2new.pop());
 }
 
+function b2Destroy() {
+  for (var i=0; i<b2new.length; i++) b2world.DestroyBody(b2new[i].body);
+  b2new = [];
+  for (var i=0; i<b2bods.length; i++) b2world.DestroyBody(b2bods[i].body);
+  b2bods = [];
+  b2Count = 0;
+}
+}
+
 function b2Joint(type, bodyA, bodyB, props) {
     var j;
     if (type=='distance') {
