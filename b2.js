@@ -272,6 +272,9 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             "get": function () {
                 return b2scaleFrom(this.body.GetLinearVelocity());
             },
+            "set": function (x) {
+                this.body.SetLinearVelocity(b2scaleTo(x));
+            }
         }
     });
     Object.defineProperties(this, {
