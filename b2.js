@@ -258,6 +258,16 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
     Object.defineProperties(this, {
+        "angularVelocity": {
+            "get": function () {
+                return this.body.GetAngularVelocity();
+            },
+            "set": function (x) {
+                this.body.SetAngularVelocity(x);
+            }
+        }
+    });
+    Object.defineProperties(this, {
         "angularDamping": {
             "get": function () {
                 return this.body.GetAngularDamping();
