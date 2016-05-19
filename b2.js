@@ -292,6 +292,9 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             "get": function () {
                 return this.body.GetAngleRadians();
             },
+             "set": function (x) {
+                this.body.SetAngleRadians(x);
+            }
         }
     });
     Object.defineProperties(this, {
