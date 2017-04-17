@@ -2,7 +2,7 @@
 
 ## How Does This Work?
 
-b2.js is a library to add Box2D support (http://box2d.org/) to P5.  box2d-html5.js is also included as it contains Box2D.  There is a tutorial with mny links to JSFiddle examples here (http://professorcook.org/CHAPphysics.pdf).
+b2.js is a library to add Box2D support (http://box2d.org/) to P5.  box2d-html5.js is also included as it contains Box2D.  There is a tutorial with many links to JSFiddle examples here (http://professorcook.org/CHAPphysics.pdf).
 
 # Welcome to Particles for P5!
 
