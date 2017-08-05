@@ -227,8 +227,11 @@ Fountain.prototype.StepOne = function(i) {
   particle.life += 1.0/this.f.lifetime;
   if (particle.partSize < 0.1 || 
       particle.location.y > height+particle.partSize || 
-      particle.life >= 1)
+      particle.life >= 1) {
         this.particles.splice(i, 1);
+        return true;
+      }
+    return false; //if not deleted
 }
 Fountain.prototype.Step = function() {
  for (var x = 0; x < this.particles.length; x++) {
