@@ -147,7 +147,7 @@ Fountain.prototype.init = function(defs, x, y) {
   this.f.gravity = this.f.gravity||0.01;
   this.f.sizePercent = this.f.sizePercent||1;
   this.f.lifetime = this.f.lifetime||99999999;
-  if (this.f.acceleration) this.f.acceleration = createVcector(this.f.acceleration[0], this.f.acceleration[1]);
+  if (this.f.acceleration) this.f.acceleration = createVector(this.f.acceleration[0], this.f.acceleration[1]);
   if (this.f.file) {
     if (!this.f.image) this.f.image = loadImage(this.f.file);
     this.image = this.f.image;
