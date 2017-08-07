@@ -196,6 +196,7 @@ Fountain.prototype.Create = function(x, y, ang) {
   var speed = this.f.speed;
   var sx = this.f.speedx;
   if (sx) speed += this.random(-sx, sx);
+  if (this.f.acceleration) ps.acceleration = this.f.acceleration;
   ps.velocity.set(cos(radians(angle))*speed,
                     sin(radians(angle)) * speed);
   ps.partSize = this.random(this.f.size[0], this.f.size[1]);
