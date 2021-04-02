@@ -4,7 +4,7 @@
 
 b2.js is a library to add Box2D support (http://box2d.org/) to P5.  box2d-html5.js is also included as it contains Box2D.  There is a tutorial with many links to JSFiddle examples here (http://professorcook.org/CHAPphysics.pdf).
 
-# Welcome to Particles for P5!
+# Welcome to Particles for P5! (note: doesn't use physics)
 
 * [How Does This Work?](#how-does-this-work)
 * [Particle](#particle)
@@ -15,13 +15,16 @@ b2.js is a library to add Box2D support (http://box2d.org/) to P5.  box2d-html5.
 
 ## How Does This Work?
 
-p5.particle is a library to add particle support to [p5.js](http://p5js.org/).
+p5.particle.js is a library to add particle support to [p5.js](http://p5js.org/).
+This repository contains two projects: a Box2D physics library and a Particle library.
+Use https://rawgit.com/bobcgausa/cook-js/master/p5.particle.js to include particles in your project.
 
 ## Particle
 A Particle object is simply a data definition.  There are no methods. 
 The data fields consist only of properties that are likely to vary on a per-particle basis.
 Properties that are common to all particles, such as gravity, are defined in the parent Fountain.
-Further, per-particle properties, such as color, that can be derived from a particle's id or life are also factored
+Since particles are so numerous, every effort was made to minimize the size of their structure definition.
+For example, per-particle properties, such as color, that can be derived from a particle's id or life are also factored
 out into its Fountain definition.
 
 The Fountain's particle creation function returns a Particle object so that it is easy for users to add additional, 
