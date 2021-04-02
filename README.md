@@ -145,7 +145,7 @@ of2 = new Fountain(null, u);
 * `rate[a,b...]`: array of pairs [count, particles-to-generate-per-CreateN], default [0,1], cycles
 * `rotation`: angular velocity in degrees, default 0
 * `shape`: string name of a "Draw" routine set by Fountain_display, default "ellipse"
-* `size[a,b]`: randomly sets partSize, default [2,2]
+* `size[a,b]`: randomly sets partSize if a != b, default [2,2]
 * `sizePercent`: grow or shrink partSize on every Step, default 1
 * `speed`: determines initial velocity, default 1
 * `speedx`: random add-on to speed at particle creation [-speedx,speedx], default 0
