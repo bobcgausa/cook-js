@@ -138,7 +138,7 @@ of2 = new Fountain(null, u);
 
 * `acceleration`: added to velocity on every step, default 0, omitted if gravity is specified
 * `angle[a,b]`: random directional angle in degrees, default [0,0], initial velocity = angle*speed
-* `colors[a...]`: array of color names or [r,g,b,a], sets this.colors, indexed by "life" fraction when drawing
+* `color[a...]`: array of color names or [r,g,b,a], sets this.colors, indexed by "life" fraction when drawing
 * `dxy[a,b]`: fraction of screen width/height, centered at xy, [-a:a,-b:b] defines generation box, default [0,0]
 * `file`: path string for an image file, sets this.image and this.f.image equal to loadImage
           note: file must be preloaded
