@@ -91,8 +91,8 @@ function fpoint(fountain, particle) {
 
 The default shape options for drawing are listed next:
 
-* `ellipse`: filled ellipse partSize x partSize, color based on life
-* `ellipse2`: filled ellipse partSize x partSize, color based on id
+* `ellipse`: filled ellipse partSize x partSize, color based on life, no rotation
+* `ellipse2`: filled ellipse partSize x partSize, color based on id, no rotation
 * `image`: tinted image, color based on life, rotated by angle, and scaled by partSize
 * `point: point, color based on life
 * `rect`: filled rectangle partSize x partSize, color based on life, no rotation
@@ -142,10 +142,10 @@ of2 = new Fountain(null, u);
 * `gravity`: applied to velocity.y at every Step, default 0.01, omitted if acceleration is specified
 * `lifetime`: number of steps for each particle to live, default 99999999
 * `limit`: number of particles to generate, default 99999999
-* `rate[a,b...]`: array of pairs [count, particles-to-generate-per-CreateN], default [0,1], cycles
+* `rate[a,b...]`: array of pairs [repeatCount, 1 to particles-to-generate-per-CreateN], default [0,1], cycles
 * `rotation`: angular velocity in degrees, default 0
 * `shape`: string name of a "Draw" routine set by Fountain_display, default "ellipse"
-* `size[a,b]`: randomly sets partSize if a != b, default [2,2]
+* `size[a,b]`: randomly sets partSize between a and b if a != b, default [2,2]
 * `sizePercent`: grow or shrink partSize on every Step, default 1
 * `speed`: determines initial velocity, default 1
 * `speedx`: random add-on to speed at particle creation [-speedx,speedx], default 0
