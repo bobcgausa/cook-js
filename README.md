@@ -16,7 +16,9 @@ b2.js is a library to add Box2D support (http://box2d.org/) to P5.  box2d-html5.
 ## How Does This Work?
 
 p5.particle.js is a library to add particle support to [p5.js](http://p5js.org/).
+Click https://editor.p5js.org/Bobcook47/sketches/-89EdNdlO to see examples.
 This repository contains two projects: a Box2D physics library and a Particle library.
+The Particle library does not use the physics library; they are separate.
 Use https://rawgit.com/bobcgausa/cook-js/master/p5.particle.js to include particles in your project.
 
 ## Particle
@@ -24,7 +26,7 @@ A Particle object is simply a data definition.  There are no methods.
 The data fields consist only of properties that are likely to vary on a per-particle basis.
 Properties that are common to all particles, such as gravity, are defined in the parent Fountain.
 Since particles are so numerous, every effort was made to minimize the size of their structure definition.
-For example, per-particle properties, such as color, that can be derived from a particle's id or life are also factored
+For example, per-particle properties, such as color, that can be derived from a particle's id or life are factored
 out into its Fountain definition.
 
 The Fountain's particle creation function returns a Particle object so that it is easy for users to add additional, 
@@ -139,6 +141,7 @@ of2 = new Fountain(null, u);
 * `colors[a...]`: array of color names or [r,g,b,a], sets this.colors, indexed by "life" fraction when drawing
 * `dxy[a,b]`: fraction of screen width/height, centered at xy, [-a:a,-b:b] defines generation box, default [0,0]
 * `file`: path string for an image file, sets this.image and this.f.image equal to loadImage
+          note: file must be preloaded
 * `gravity`: applied to velocity.y at every Step, default 0.01, omitted if acceleration is specified
 * `lifetime`: number of steps for each particle to live, default 99999999
 * `limit`: number of particles to generate, default 99999999
