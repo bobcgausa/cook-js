@@ -53,10 +53,11 @@ function imagetint(fount, img, index, color) {
 function fimage(fountain, particle) {
    var i = Math.floor(particle.life*fountain.colors.length);
    var c = fountain.colors[i];
-   if (c.rgba[3]==0) return;
+   if (alpha(c)==0) return;
    var img = fountain.f.image;
-   if (c.rgba[3]!=255 || c.rgba[1]!=255 || c.rgba[2]!=255 || c.rgba[0]!=255)
-    img = imagetint(this, img, i, c);
+   if (alpha(c)!=255 || red(c)!=255 || green(c)!=255 || blue(c)!=255) {
+    tint(c);
+   }
     noStroke();
     if (particle.rotation==0 && particle.partSize == 1) {
       image(img, particle.location.x, particle.location.y);
