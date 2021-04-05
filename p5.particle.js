@@ -175,6 +175,7 @@ Fountain.prototype.Draw = function () {
   for (var x = this.particles.length-1; x >= 0 ; x--) {
     this.draw(this, this.particles[x]);
   }
+  angleMode(RADIANS);
 }
 
 Fountain.prototype.CreateN = function(x, y, ang) {
