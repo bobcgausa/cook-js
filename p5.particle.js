@@ -171,11 +171,10 @@ Fountain.prototype.random = function (a,b) {
 }
  
 Fountain.prototype.Draw = function () {
-  push(); imageMode(CENTER); angleMode(DEGREES); rectMode(CENTER); ellipseMode(CENTER);
+  imageMode(CENTER); angleMode(DEGREES); rectMode(CENTER); ellipseMode(CENTER);
   for (var x = this.particles.length-1; x >= 0 ; x--) {
     this.draw(this, this.particles[x]);
   }
-  pop();
 }
 
 Fountain.prototype.CreateN = function(x, y, ang) {
