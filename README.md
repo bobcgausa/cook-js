@@ -64,7 +64,7 @@ x.length  // number of active particles
 x.left    // number of particles left to create
 x.done    // Fountain has generated all particles and they have all terminated
 
-x.Draw();  // Draw all particles
+x.Draw();  // Draw all particles  NOTE: may need to surround with push/pop to prevent side effects 
 x.Step();  // Step all particles, e.g. location.add(velocity)
 x.Stop();  // Set left=0 and clear all active particles
 x.Create( [ x, y [, angle]]);  // Create one particle, returns a Particle object or null if left==0
