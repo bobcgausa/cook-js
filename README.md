@@ -71,12 +71,12 @@ x.Create( [ x, y [, angle]]);  // Create one particle, returns a Particle object
 x.CreateN( [ x, y [, angle]]); // Uses a Fountain's "rate" property to create bursts of particles
 ```
 
-Particle drawing is totally up to the user.
+Particle drawing can be extended by the user.
 The following function can be called to extend the set of default drawing routines.
 
 ```
-function Fountain_display(name, proc) {
-  fdisplay[name] = proc;
+function Fountain_display(newShapeName, proc) {
+  fdisplay[newShapeName] = proc;
 }
 ```
 
@@ -91,7 +91,7 @@ function fpoint(fountain, particle) {
 }
 ```
 
-The default shape options for drawing are listed next:
+The default shape options, which have pre-defined drawing functions, are listed next:
 
 * `ellipse`: filled ellipse partSize x partSize, color based on life, no rotation
 * `ellipse2`: filled ellipse partSize x partSize, color based on id, no rotation
