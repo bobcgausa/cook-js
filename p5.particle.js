@@ -181,8 +181,10 @@ Fountain.prototype.Draw = function () {
 Fountain.prototype.CreateN = function(x, y, ang) {
   var i, k = this.f.rate[this.step+1];
   if (k < 1) {
-    if (k!=0 && this.random(0,1) > k) return;
-    i = this.count; this.count = 0;
+    if (k != 0) {
+      if (this.random(0,1) > k) return;
+      i = this.count; this.count = 0;
+    }
   } else i = this.random(1,k);
   for (var j=0; j<i; j++) this.Create(x, y, ang);
   if (--this.count <= 0) {
