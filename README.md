@@ -145,7 +145,7 @@ of2 = new Fountain(null, u);
 * `gravity`: applied to velocity.y at every Step, default 0.01, omitted if acceleration is specified
 * `lifetime`: number of steps for each particle to live, default 99999999
 * `limit`: number of particles to generate, default 99999999
-* `rate[a,b...]`: array of pairs [repeatCount, 1 to particles-to-generate-per-CreateN], default [0,1], cycles
+* `rate[a,b...]`: array of pairs [a=repeatCount, b= 1 to particles-to-generate-per-CreateN], default [0,1], cycles
 * `rotation`: angular velocity in degrees, default 0
 * `shape`: string name of a "Draw" routine set by Fountain_display, default "ellipse"
 * `size[a,b]`: randomly sets partSize between a and b if a != b, default [2,2]
