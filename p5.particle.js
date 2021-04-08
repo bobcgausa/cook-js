@@ -142,11 +142,11 @@ Fountain.prototype.init = function(defs, x, y) {
   this.f.rate = this.f.rate||[0,1];
   this.count = this.f.rate[0];
   this.f.angle = this.f.angle||[0,0];
-  this.f.speed = this.f.speed||1;
+  if (this.f.speed==undefined) this.f.speed = 1;
   this.f.speedx = this.f.speedx||0;
   this.f.size = this.f.size||[2,2];
-  this.f.gravity = this.f.gravity||0.01;
-  this.f.sizePercent = this.f.sizePercent||1;
+  if (this.f.gravity==undefined) this.f.gravity = 0.01;
+  if (this.f.sizePercent==undefined) this.f.sizePercent = 1;
   this.f.lifetime = this.f.lifetime||99999999;
   if (this.f.acceleration) this.f.acceleration = createVector(this.f.acceleration[0], this.f.acceleration[1]);
   if (this.f.file) {
