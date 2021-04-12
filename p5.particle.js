@@ -182,7 +182,7 @@ Fountain.prototype.CreateN = function(x, y, ang) {
   var i, k = this.f.rate[this.step+1];
   if (k < 1) {
     if (k != 0) {
-      if (this.random(0,1) > k) return;
+      if (random() > k) return;
       i = this.count; this.count = 0;
     }
   } else i = this.random(1,k);
