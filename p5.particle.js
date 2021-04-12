@@ -185,7 +185,7 @@ Fountain.prototype.CreateN = function(x, y, ang) {
       if (random() > k) return;
       i = this.count; this.count = 0;
     }
-  } else i = this.random(1,k);
+  } else i = round(this.random(1,k));
   for (var j=0; j<i; j++) this.Create(x, y, ang);
   if (--this.count <= 0) {
     this.step = (this.step+2)%this.f.rate.length;
