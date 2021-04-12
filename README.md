@@ -101,17 +101,20 @@ The default shape options, which have pre-defined drawing functions, are listed 
 
 Examples can be found at [jsfiddle.net](http://jsfiddle.net/bobcook/cr1t6fzg/):
 
-* [Particle #1 JSON Example](http://jsfiddle.net/bobcook/cr1t6fzg/)
-* [Particle #2 User Structure](http://jsfiddle.net/bobcook/53h2uss8/)
-* [Particle #3 User Drawing Function](http://jsfiddle.net/bobcook/mph714p8/)
-* [Particle #4 Vary speed with speedx](http://jsfiddle.net/bobcook/en4he5vt/)
-* [Particle #5 Generation patterns with rate](http://jsfiddle.net/bobcook/rLvhc8h2/)
+* [Particle #1 JSON Example](https://jsfiddle.net/bobcook/cr1t6fzg/)
+* [Particle #2 User Structure](https://jsfiddle.net/bobcook/53h2uss8/)
+* [Particle #3 User Drawing Function](https://jsfiddle.net/bobcook/mph714p8/)
+* [Particle #4 Vary speed with speedx](https://jsfiddle.net/bobcook/en4he5vt/)
+* [Particle #5 Generation patterns with rate](https://jsfiddle.net/bobcook/rLvhc8h2/)
+* [Particle #6 Animated Sprite Particles](https://editor.p5js.org/Bobcook47/sketches/7tMVwdcWE)
+* [Particle #7 Particles tied to Rocket Exhaust](https://editor.p5js.org/Bobcook47/sketches/OJxsY33rj)
+* [Particle #8 Particles following a Spline Curve](https://editor.p5js.org/Bobcook47/sketches/_TXG8tZR4)
 
-TESTING: Tested on Internet Explorer, Firefox, Chrome, ChromeBook, Edge
+TESTING: Tested on Internet Explorer, Firefox, Chrome, ChromeBook, Edge, Safari
 
 ## Fountain/Particle Definition Properties
 
-The object definition passed to the Fountain constructor can be user-defined or JSON as follows:
+The object definition passed to the Fountain constructor can be user-defined (u) or JSON (t) as follows:
 
 ```
 var t = '{' +
