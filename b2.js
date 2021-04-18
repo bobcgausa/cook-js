@@ -17,6 +17,9 @@ var b2scaleTo = function(a) {
 var b2scaleFrom = function(a) {
   return createVector(a.x*b2scaleFactor,a.y*b2scaleFactor);
 }
+function b2scalexTo(x) {return x/b2scaleFactor;}
+function b2scalexFrom(x) {return x*b2scaleFactor;}
+function b2getBodyCount() {return b2Count;}
 function b2Update() {
   // 2nd and 3rd arguments are velocity and position iterations
   b2world.Step(1.0/30,10,10);
@@ -144,7 +147,7 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     this.collision = null;
     b2Count++;
     this.body = b2world.CreateBody(this.body);
-    this.body.userData = this;
+    this.body.userData = {body:this, user: null};
     this.addTo(type,createVector(0,0),wh,angle);
     b2new.push(this);
     Object.defineProperties(this, {
@@ -159,6 +162,29 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             "get": function () {
                 return this.body.IsActive();
             },
+           "set": function (x) {
+                this.body.SetActive(x);
+            }
+        }
+    });
+    Object.defineProperties(this, {
+        "awake": {
+            "get": function () {
+                return this.body.IsAwake();
+            },
+           "set": function (x) {
+                this.body.SetAwake(x);
+            }
+        }
+    });
+    Object.defineProperties(this, {
+        "sleepingAllowed": {
+            "get": function () {
+                return this.body.IsSleepingAllowed();
+            },
+           "set": function (x) {
+                this.body.SetSleepingAllowed(x);
+            }
         }
     });
     Object.defineProperties(this, {
@@ -258,6 +284,16 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
     Object.defineProperties(this, {
+        "userData": {
+            "get": function () {
+                return this.body.userData.user;
+            },
+            "set": function (x) {
+                this.body.userData.user = x;
+            }
+        }
+    });
+    Object.defineProperties(this, {
         "angularVelocity": {
             "get": function () {
                 return this.body.GetAngularVelocity();
@@ -280,10 +316,10 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     Object.defineProperties(this, {
         "velocity": {
             "get": function () {
-                return b2scaleFrom(this.body.GetLinearVelocity());
+                return this.body.GetLinearVelocity();
             },
             "set": function (x) {
-                this.body.SetLinearVelocity(b2scaleTo(x));
+                this.body.SetLinearVelocity(x);
             }
         }
     });
@@ -298,10 +334,49 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         }
     });
     Object.defineProperties(this, {
+        "fixedRotation": {
+            "get": function () {
+                return this.body.IsFixedRotation();
+            },
+             "set": function (x) {
+                this.body.SetFixedRotation(x);
+            }
+        }
+    });
+    Object.defineProperties(this, {
+        "transform": {
+            "get": function () {
+                var t = this.body.GetTransform();
+                return {p: b2scaleFrom(t.p), q: t.q};
+            },
+             "set": function (x) {
+                var t = this.body.GetTransform();
+                t.p.x = b2scalexTo(x.p.x);
+                t.p.y = b2scalexTo(x.p.y);
+                t.q.angle = x.q.angle;
+                this.body.SetTransform(t);
+            }
+        }
+    });
+    Object.defineProperties(this, {
         "centerOfMass": {
             "get": function () {
                 return b2scaleFrom(this.body.GetWorldCenter());
+            }, //note: y appears relative, x absolute
+        }
+    });
+    Object.defineProperties(this, {
+        "localCenter": {
+            "get": function () {
+            return b2scaleFrom(this.body.GetLocalCenter());
             },
+        }
+    });
+    Object.defineProperties(this, {
+        "worldCenter": {
+            "get": function () {
+            return b2scaleFrom(this.body.GetWorldCenter());
+            }, //note: y appears relative, x absolute
         }
     });
     Object.defineProperties(this, {
@@ -315,6 +390,13 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
         "classOf": {
             "get": function () {
                 return 'b2Body';
+            },
+        }
+    });
+    Object.defineProperties(this, {
+        "inertia": {
+            "get": function () {
+                return this.body.GetInertia();
             },
         }
     });
@@ -484,7 +566,7 @@ var b2GetBodyAt = function(x,y) {
    b2world.QueryAABB(function(fixture) {
      if(fixture.GetBody().GetType() != box2d.b2BodyType.b2_staticBody) {
         if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mouseInWorld)) {
-           selectedBody = fixture.GetBody().userData;
+           selectedBody = fixture.GetBody().userData.body;
            return false;
         }
      }
@@ -549,13 +631,38 @@ b2Body.prototype.getMaxMotorTorque = function (index) {
 b2Body.prototype.setTarget = function (xy,index) {
    this.joints[index||0].SetTarget(b2scaleTo(xy));
 }
-b2Body.prototype.applyImpulse = function (xy,power) {
-    xy.mult(power);
-    this.body.ApplyLinearImpulse(new box2d.b2Vec2(xy.x,xy.y),this.body.GetWorldCenter());
+b2Body.prototype.getFixture = function (index) {
+   return this.fixtures[index||0];
 }
-b2Body.prototype.applyForce = function (xy,power) {
+b2Body.prototype.getJoint = function (index) {
+   return this.joints[index||0];
+}
+b2Body.prototype.getWorldPoint = function (xy) {
+   return b2scaleFrom(this.body.GetWorldPoint(xy, new box2d.b2Vec2(0,0)));
+}
+b2Body.prototype.getWorldVector = function (xy) {
+   return b2scaleFrom(this.body.GetWorldVector(xy, new box2d.b2Vec2(0,0)));
+}
+b2Body.prototype.getLocalPoint = function (xy) {
+   return b2scaleFrom(this.body.GetLocalPoint(xy, new box2d.b2Vec2(0,0)));
+}
+b2Body.prototype.getLocalVector = function (xy) {
+   return b2scaleFrom(this.body.GetLocalVector(xy, new box2d.b2Vec2(0,0)));
+}
+b2Body.prototype.getVelocityFromWorldPoint = function (xy) {
+   return 
+  this.body.GetLinearVelocityFromWorldPoint(b2scaleTo(xy),
+                    new box2d.b2Vec2(0,0));
+}
+b2Body.prototype.applyImpulse = function (xy,power,xxyy) {
     xy.mult(power);
-    this.body.ApplyForce(new box2d.b2Vec2(xy.x,xy.y),this.body.GetWorldCenter());
+    this.body.ApplyLinearImpulse(new box2d.b2Vec2(xy.x,xy.y), 
+    xxyy?b2scaleTo(xxyy):this.body.GetWorldCenter());
+}
+b2Body.prototype.applyForce = function (xy,power,xxyy) {
+    xy.mult(power);
+    this.body.ApplyForce(new box2d.b2Vec2(xy.x,xy.y), 
+          xxyy?b2scaleTo(xxyy):this.body.GetWorldCenter());
 }
 b2Body.prototype.applyTorque = function (x) {
     this.body.ApplyTorque(x);
@@ -564,7 +671,7 @@ b2Body.prototype.applyAngularImpulse = function (x) {
     this.body.ApplyAngularImpulse(x);
 }
 b2Body.prototype.toString = function () {
-    var v = b2scaleFrom(this.velocity);
+    var v = this.velocity;
     var xy = b2scaleFrom(this.body.GetPosition());
     return xy.x.toFixed() + '/' + xy.y.toFixed() + ' ' + v.x.toFixed(2) + '/' + v.y.toFixed(2);
 }
@@ -583,7 +690,7 @@ this.BeginContact = function(contact) {
   if (!b1.IsActive()) return;
   var b2 = f2.GetBody();
   if (!b2.IsActive()) return;
-  b2contacts.push(b1.userData,b2.userData);
+  b2contacts.push(b1.userData.body,b2.userData.body);
 }
   // Objects stop touching each other
   this.EndContact = function(contact) {
