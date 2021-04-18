@@ -316,10 +316,11 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     Object.defineProperties(this, {
         "velocity": {
             "get": function () {
-                return this.body.GetLinearVelocity();
+                var t = this.body.GetLinearVelocity();
+		return createVector(t.x, t.y);
             },
             "set": function (x) {
-                this.body.SetLinearVelocity(x);
+                this.body.SetLinearVelocity(new box2d.b2Vec2(x.x, x.y));
             }
         }
     });
@@ -650,9 +651,10 @@ b2Body.prototype.getLocalVector = function (xy) {
    return b2scaleFrom(this.body.GetLocalVector(xy, new box2d.b2Vec2(0,0)));
 }
 b2Body.prototype.getVelocityFromWorldPoint = function (xy) {
-   return 
+   var t = 
   this.body.GetLinearVelocityFromWorldPoint(b2scaleTo(xy),
                     new box2d.b2Vec2(0,0));
+  return createVector(t.x, t.y);
 }
 b2Body.prototype.applyImpulse = function (xy,power,xxyy) {
     xy.mult(power);
