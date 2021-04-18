@@ -318,6 +318,20 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
             },
         }
     });
+    Object.defineProperties(this, {
+        "fixtureCount": {
+            "get": function () {
+                return this.body.fixtures.length;
+            },
+        }
+    });
+    Object.defineProperties(this, {
+        "jointCount": {
+            "get": function () {
+                return this.body.joints.length;
+            },
+        }
+    });
 }
 b2Body.prototype.addTo = function(type,xy,wh,/*optional*/angle) {
     var t;
