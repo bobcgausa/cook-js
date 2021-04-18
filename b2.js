@@ -321,14 +321,14 @@ function b2Body(type, dynamic, xy, wh, /*optional*/den,fric,bounce,angle) {
     Object.defineProperties(this, {
         "fixtureCount": {
             "get": function () {
-                return this.body.fixtures.length;
+                return this.fixtures.length;
             },
         }
     });
     Object.defineProperties(this, {
         "jointCount": {
             "get": function () {
-                return this.body.joints.length;
+                return this.joints.length;
             },
         }
     });
