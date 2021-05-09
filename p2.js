@@ -69,10 +69,10 @@ function b2Update(timeScale, forceStep, positionStep) {
   b2world.step(timeScale||1/30, forceStep||8, positionStep||4);
   if (b2contacts.length == 0) return;
   for (var i = 0; i < b2contacts.length; i += 2) {
-    if (b2contacts[i].m_userData.body.collision != null) {
-      b2contacts[i].m_userData.body.collision(b2contacts[i], b2contacts[i + 1]);
-    } else if (b2contacts[i + 1].m_userData.body.collision != null) {
-      b2contacts[i + 1].m_userData.body.collision(b2contacts[i + 1], b2contacts[i]);
+    if (b2contacts[i].m_userData.body.m_collision != null) {
+      b2contacts[i].m_userData.body.m_collision(b2contacts[i], b2contacts[i + 1]);
+    } else if (b2contacts[i + 1].m_userData.body.m_collision != null) {
+      b2contacts[i + 1].m_userData.body.m_collision(b2contacts[i + 1], b2contacts[i]);
     }
   }
   b2contacts = [];
