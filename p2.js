@@ -94,7 +94,7 @@ function b2Draw(debug) {
       continue;
     }
     if (b2bods[i].m_display) b2bods[i].m_display(b2bods[i]);
-    else if (b2bods[i].draw()) b2bods[i].destroy();
+    else b2bods[i].draw();
     i++;
   }
   if (debug) b2debugDraw(this.canvas, b2scaleFactor, b2world);
@@ -699,10 +699,10 @@ b2Body.prototype.destroy = function() {
 }
 b2Body.prototype.draw = function() {
   var pos = b2scaleFrom(this.body.getPosition());
-  if (pos.x < b2world.x || pos.x > b2world.x+b2world.width) return true;
-  if (pos.y < b2world.y-b2world.height || pos.y > b2world.y+b2world.height) return true;
-  if (this.m_life-- < 0) return true;
-  if (!this.m_visible) return false;
+  if (pos.x < b2world.x || pos.x > b2world.x+b2world.width) {this.destroy(); return;}
+  if (pos.y < b2world.y-b2world.height*0.5 || pos.y > b2world.y+b2world.height*0.5) {this.destroy(); return;}
+  if (this.m_life-- < 0) {this.destroy(); return;}
+  if (!this.m_visible) return;
   push();  //todo change from push/pop to undo transforms
   translate(pos.x, pos.y);
   var a = this.body.getAngle();
@@ -717,7 +717,7 @@ b2Body.prototype.draw = function() {
     this.drawFixture(fixture);
   } //for fixture
   pop();
-  return false;
+  return;
 }
 
 b2Body.prototype.drawFixture = function(fixture) {
