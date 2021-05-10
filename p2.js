@@ -136,7 +136,7 @@ function b2Draw(debug) {
 }
 
 b2Body.prototype.destroy = function () {
-  this.body.SetActive(false);
+  this.body.setActive(false);
 };
 
 function b2Destroy() {
