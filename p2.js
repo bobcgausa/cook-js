@@ -129,7 +129,6 @@ function b2Draw(debug) {
       push(); b2bods[i].m_display(b2bods[i]); pop();
     } else b2bods[i].draw();
     resetMatrix();
-    i++;
   }
   if (debug) b2debugDraw(this.canvas, b2scaleFactor, b2world);
   while (b2new.length > 0) b2bods.push(b2new.pop());
