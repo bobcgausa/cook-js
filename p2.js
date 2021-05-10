@@ -97,12 +97,11 @@ function b2Draw(debug) {
   rectMode(CENTER);
   ellipseMode(CENTER);
   angleMode(RADIANS);
-  translate(-b2world.origin.x, -b2world.origin.y);
-  var i = 0;
-  while (i < b2bods.length) {
+  var i = -1;
+  while (++i < b2bods.length) {
     if (!b2bods[i].body.isActive()) {
       b2world.destroyBody(b2bods[i].body);
-      b2bods[i] = b2bods[b2bods.length - 1];
+      if (i > 0) b2bods[i] = b2bods[b2bods.length - 1];
       b2bods.pop();
       continue;
     }
@@ -123,7 +122,7 @@ function b2Draw(debug) {
       continue;
     }
     if (!b2bods[i].m_visible) continue;
-    translate(pos.x, pos.y);
+    translate(-b2world.origin.x+pos.x, -b2world.origin.y+pos.y);
     var a = b2bods[i].body.getAngle();
     if (a != 0) rotate(a);
     if (b2bods[i].m_display) {
