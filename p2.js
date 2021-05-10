@@ -124,7 +124,7 @@ function b2Body(type, dynamic, xy, wh, props) {
   else this.body = b2world.createBody(v);
   if (props == undefined) props = {};
   this.m_life = props.life||10000000;
-  this.m_collision = props.collision||null;
+  this.collision = props.collision||null;
   this.m_visible = props.visible == undefined?true:props.visible;
   this.m_display = props.display||null;
   var temp = props.userData || null;
