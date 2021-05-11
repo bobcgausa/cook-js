@@ -101,7 +101,7 @@ function b2Draw(debug) {
   while (++i < b2bods.length) {
     if (!b2bods[i].body.isActive()) {
       b2world.destroyBody(b2bods[i].body);
-      if (i > 0) b2bods[i] = b2bods[b2bods.length - 1];
+      b2bods[i] = b2bods[b2bods.length - 1];
       b2bods.pop();
       continue;
     }
