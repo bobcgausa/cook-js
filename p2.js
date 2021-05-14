@@ -27,14 +27,14 @@ function b2setWorld(x, y, w, h) {
   b2world.width = w == undefined ? width * 2 : w;
   b2world.height = h == undefined ? height * 2 : h;
   b2world.x = x == undefined ? -width * 0.5 : x;
-  b2world.y = y == undefined ? height * 0.5 : x;
-  b2world.origin = b2V(0, 0);
+  b2world.y = y == undefined ? -height * 0.5 : y;
+  b2world.origin = b2V(width/2, height/2);
 }
 function b2getWorld() {
   //lower left, top right
   return new box2d.AABB(
-    b2V(b2world.x, b2world.y + b2world.width / 2),
-    b2V(b2world.x + b2world.width, b2world.y - b2world.width / 2)
+    b2V(b2world.x, b2world.y),
+    b2V(b2world.x + b2world.width, b2world.y+b2world.height)
   );
 }
 function b2setOrigin(v) {
@@ -111,8 +111,8 @@ function b2Draw(debug) {
       continue;
     }
     if (
-      pos.y < b2world.y - b2world.height * 0.5 ||
-      pos.y > b2world.y + b2world.height * 0.5
+      pos.y < b2world.y ||
+      pos.y > b2world.y + b2world.height
     ) {
       b2bods[i].destroy();
       continue;
@@ -122,7 +122,11 @@ function b2Draw(debug) {
       continue;
     }
     if (!b2bods[i].m_visible) continue;
-    translate(-b2world.origin.x+pos.x, -b2world.origin.y+pos.y);
+    var x = width/2-b2world.origin.x+pos.x;
+    if (x < -100 || x > width+100) continue;
+    var y = height/2-b2world.origin.y+pos.y;
+    if (y < -100 || y > height+100) continue;
+    translate(x, y);
     var a = b2bods[i].body.getAngle();
     if (a != 0) rotate(a);
     if (b2bods[i].m_display) {
@@ -762,9 +766,6 @@ function b2Listener(contact) {
   b2contacts.push(f1, f2);
 }
 
-b2Body.prototype.destroy = function () {
-  this.body.setActive(false);
-};
 b2Body.prototype.draw = function () {
   for (
     var fixture = this.body.getFixtureList();
