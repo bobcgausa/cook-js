@@ -1,3 +1,5 @@
+/*RPC051521 Planck adds fixtures LIFO, not FIFO so image 
+  properties had to be kept with body, not 1st fixture*/
 var b2world;
 var b2bods = [];
 var b2new = [];
@@ -171,6 +173,8 @@ function b2Body(type, dynamic, xy, wh, props) {
   props.angle = 0;
   this.body.m_userData = { body: this, user: temp };
   b2new.push(this);
+  if (props.image) this.m_image = props.image; /*RPC051521*/
+  if (props.imageResize) this.m_imageResize = props.imageResize;
   if (temp) props.userData = null;
   this.addTo(type, b2V(0, 0), wh, props);
   if (temp2 != 0) this.body.setAngle(temp2);
@@ -417,23 +421,23 @@ function b2Body(type, dynamic, xy, wh, props) {
       },
     },
   });
-  Object.defineProperties(this, {
+  Object.defineProperties(this, { /*RPC051521*/
     image: {
       get: function () {
-        return this.fixture.m_image;
+        return this.m_image;
       },
       set: function (x) {
-        this.fixture.m_image = x;
+        this.m_image = x;
       },
     },
   });
-  Object.defineProperties(this, {
+  Object.defineProperties(this, { /*RPC051521*/
     imageResize: {
       get: function () {
-        return this.fixture.m_imageResize;
+        return this.m_imageResize;
       },
       set: function (x) {
-        this.fixture.m_imageResize = x;
+        this.m_imageResize = x;
       },
     },
   });
@@ -742,9 +746,7 @@ b2Body.prototype.addTo = function (type, xy, wh, /*optional*/ props) {
   if (props.density == undefined) props.density = 5;
   if (props.friction == undefined) props.friction = 0.5;
   if (props.restitution == undefined) props.restitution = 0.2;
-  c = this.body.createFixture(props);
-  if (props.image) c.m_image = props.image;
-  if (props.imageResize) c.m_imageResize = props.imageResize;
+  c = this.body.createFixture(props); /*RPC051521*/
   c.m_userData = {
     body: this,
     user: null,
@@ -767,25 +769,20 @@ function b2Listener(contact) {
 }
 
 b2Body.prototype.draw = function () {
+  if (this.m_image) { /*RPC051521*/
+    if (this.m_imageResize)
+        image(this.m_image, 0, 0,
+          this.m_imageResize.x,
+          this.m_imageResize.y,
+          0, 0);
+      else image(this.m_image, 0, 0);
+      return;
+  }
   for (
     var fixture = this.body.getFixtureList();
     fixture;
     fixture = fixture.getNext()
   ) {
-    if (fixture.m_image) {
-      if (fixture.m_imageResize)
-        image(
-          fixture.m_image,
-          0,
-          0,
-          fixture.m_imageResize.x,
-          fixture.m_imageResize.y,
-          0,
-          0
-        );
-      else image(fixture.m_image, 0, 0);
-      continue;
-    }
     this.drawFixture(fixture);
   } //for fixture
   return;
