@@ -1,5 +1,7 @@
 /*RPC051521 Planck adds fixtures LIFO, not FIFO so image 
   properties had to be kept with body, not 1st fixture*/
+/*RPC051721 we skip drawing for out-of-view bodies, but
+  edges can be very long, so added exclusion*/
 var b2world;
 var b2bods = [];
 var b2new = [];
@@ -124,10 +126,11 @@ function b2Draw(debug) {
       continue;
     }
     if (!b2bods[i].m_visible) continue;
-    var x = width/2-b2world.origin.x+pos.x;
-    if (x < -100 || x > width+100) continue;
+    var x = width/2-b2world.origin.x+pos.x; /*RPC051721*/
     var y = height/2-b2world.origin.y+pos.y;
-    if (y < -100 || y > height+100) continue;
+    if ((x < -100 || x > width+100) || (y < -100 || y > height+100)) {
+      if (b2bods[i].fixture.getType() != 'chain') continue;
+    }
     translate(x, y);
     var a = b2bods[i].body.getAngle();
     if (a != 0) rotate(a);
