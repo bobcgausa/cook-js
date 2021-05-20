@@ -2,6 +2,9 @@
   properties had to be kept with body, not 1st fixture*/
 /*RPC051721 we skip drawing for out-of-view bodies, but
   edges can be very long, so added exclusion*/
+/*RPC051821 horrors, realized that scaleFrom's use of P5's
+  createVector caused problems because some functions
+  returned Vec2s.*/
 var b2world;
 var b2bods = [];
 var b2new = [];
@@ -59,8 +62,8 @@ var b2scalexyTo = function (x, y) {
   return box2d.Vec2(x / b2scaleFactor, y / b2scaleFactor);
 };
 
-var b2scaleFrom = function (a) {
-  return createVector(a.x * b2scaleFactor, a.y * b2scaleFactor);
+var b2scaleFrom = function (a) { /*RPC051821*/
+  return box2d.Vec2(a.x * b2scaleFactor, a.y * b2scaleFactor);
 };
 
 function b2scalexTo(x) {
