@@ -462,7 +462,7 @@ function b2Body(type, dynamic, xy, wh, props) {
   Object.defineProperties(this, {
     joint: {
       get: function () {
-        return this.body.getJointList.joint;
+        return this.body.getJointList().joint;
       },
     },
   });
