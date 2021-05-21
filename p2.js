@@ -5,6 +5,7 @@
 /*RPC051821 horrors, realized that scaleFrom's use of P5's
   createVector caused problems because some functions
   returned Vec2s.*/
+/*RPC052121 removed changes to fixture userData property */
 var b2world;
 var b2bods = [];
 var b2new = [];
@@ -82,14 +83,14 @@ function b2Update(timeScale, forceStep, positionStep) {
   // 2nd and 3rd arguments are velocity and position iterations
   b2world.step(timeScale || 1 / 30, forceStep || 8, positionStep || 4);
   if (b2contacts.length == 0) return;
-  for (var i = 0; i < b2contacts.length; i += 2) {
-    if (b2contacts[i].m_userData.body.m_collision != null) {
-      b2contacts[i].m_userData.body.m_collision(
+  for (var i = 0; i < b2contacts.length; i += 2) { /*052121*/
+    if (b2contacts[i].m_body.m_userData.body.m_collision != null) {
+      b2contacts[i].m_body.m_userData.body.m_collision(
         b2contacts[i],
         b2contacts[i + 1]
       );
-    } else if (b2contacts[i + 1].m_userData.body.m_collision != null) {
-      b2contacts[i + 1].m_userData.body.m_collision(
+    } else if (b2contacts[i + 1].m_body.m_userData.body.m_collision != null) {
+      b2contacts[i + 1].m_body.m_userData.body.m_collision(
         b2contacts[i + 1],
         b2contacts[i]
       );
@@ -174,17 +175,14 @@ function b2Body(type, dynamic, xy, wh, props) {
   }
   this.m_visible = props.visible == undefined ? true : props.visible;
   this.m_display = props.display || null;
-  var temp = props.userData || null;
-  var temp2 = props.angle || 0;
+  var temp2 = props.angle || 0; /*052121*/
   props.angle = 0;
-  this.body.m_userData = { body: this, user: temp };
+  this.body.m_userData = { body: this, user: props.userData || null };
   b2new.push(this);
   if (props.image) this.m_image = props.image; /*RPC051521*/
   if (props.imageResize) this.m_imageResize = props.imageResize;
-  if (temp) props.userData = null;
   this.addTo(type, b2V(0, 0), wh, props);
   if (temp2 != 0) this.body.setAngle(temp2);
-  if (temp) props.userData = temp;
   props.angle = temp2;
   Object.defineProperties(this, {
     aabb: {
@@ -458,6 +456,13 @@ function b2Body(type, dynamic, xy, wh, props) {
     inertia: {
       get: function () {
         return this.body.getInertia();
+      },
+    },
+  });
+  Object.defineProperties(this, {
+    joint: {
+      get: function () {
+        return this.body.getJointList.joint;
       },
     },
   });
@@ -753,10 +758,7 @@ b2Body.prototype.addTo = function (type, xy, wh, /*optional*/ props) {
   if (props.friction == undefined) props.friction = 0.5;
   if (props.restitution == undefined) props.restitution = 0.2;
   c = this.body.createFixture(props); /*RPC051521*/
-  c.m_userData = {
-    body: this,
-    user: null,
-  };
+  /*052121*/
   return c;
 };
 
@@ -766,9 +768,9 @@ function b2Listener(contact) {
   var f1 = contact.getFixtureA();
   var f2 = contact.getFixtureB();
   // Get both bodies
-  var b1 = f1.m_userData.body;
+  var b1 = f1.m_body.m_userData.body;
   if (!b1.body.isActive()) return;
-  var b2 = f2.m_userData.body;
+  var b2 = f2.m_body.m_userData.body;
   if (!b2.body.isActive()) return;
   if (b1.collision == null && b2.collision == null) return;
   b2contacts.push(f1, f2);
