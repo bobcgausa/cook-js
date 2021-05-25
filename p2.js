@@ -6,6 +6,7 @@
   createVector caused problems because some functions
   returned Vec2s.*/
 /*RPC052121 removed changes to fixture userData property */
+/*RPC052521 addTo omitted var c so assign to c wiped out global variable*/
 var b2world;
 var b2bods = [];
 var b2new = [];
@@ -757,7 +758,7 @@ b2Body.prototype.addTo = function (type, xy, wh, /*optional*/ props) {
   if (props.density == undefined) props.density = 5;
   if (props.friction == undefined) props.friction = 0.5;
   if (props.restitution == undefined) props.restitution = 0.2;
-  c = this.body.createFixture(props); /*RPC051521*/
+  var c = this.body.createFixture(props); /*RPC051521*/ /*RPC052521*/
   /*052121*/
   return c;
 };
@@ -950,6 +951,8 @@ b2Body.prototype.createJoint = function b2Joint(type, bodyB, props, anchor) {
     collideConnected: props.collideConnected,
     maxLength:
       props.maxLength != undefined ? b2scalexTo(props.maxLength) : null,
+    length:
+      props.length != undefined ? b2scalexTo(props.length) : null, /*052521*/
     userData: props.userData,
     lengthA: props.lengthA != undefined ? b2scalexTo(props.lengthA) : null,
     lengthB: props.lengthB != undefined ? b2scalexTo(props.lengthB) : null,
