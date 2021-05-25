@@ -951,8 +951,6 @@ b2Body.prototype.createJoint = function b2Joint(type, bodyB, props, anchor) {
     collideConnected: props.collideConnected,
     maxLength:
       props.maxLength != undefined ? b2scalexTo(props.maxLength) : null,
-    length:
-      props.length != undefined ? b2scalexTo(props.length) : null, /*052521*/
     userData: props.userData,
     lengthA: props.lengthA != undefined ? b2scalexTo(props.lengthA) : null,
     lengthB: props.lengthB != undefined ? b2scalexTo(props.lengthB) : null,
